@@ -1,0 +1,32 @@
+CC = gcc
+CFLAGS = -Wall -std=c11
+LDFLAGS  =  -lm  
+
+APP_BIN = imagimp
+
+SRC_PATH = src
+OBJ_PATH = obj
+INC_PATH = -I include
+BIN_PATH = .
+LIB_PATH = lib
+MKDIR_P = mkdir
+
+
+SRC_FILES = $(wildcard */*.c)
+OBJ_FILES = $(patsubst $(SRC_PATH)/%.c,$(OBJ_PATH)/%.o, $(SRC_FILES))
+
+all: $(APP_BIN)
+
+$(APP_BIN): $(OBJ_FILES)
+	if not exist "$(BIN_PATH)" $(MKDIR_P) $(BIN_PATH)
+	$(CC) -o $(BIN_PATH)/$(APP_BIN) $(OBJ_FILES) $(LDFLAGS)
+
+$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
+	if not exist "$(@D)" $(MKDIR_P) "$(@D)"
+	$(CC) -c $< -o $@ $(CFLAGS) $(INC_PATH)$(LDFLAGS)
+
+run : 
+	$(APP_BIN)
+	
+clean:
+	del /s obj\* $(BIN_PATH)\$(APP_BIN).exe 

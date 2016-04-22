@@ -1,0 +1,6 @@
+bin contiendra imagimp.exe
+doc contiendra la documentation et le rapport
+include contiendra les fichiers headers (.h)
+lib contiendra la bibliothèque graphique ou autre source externe
+obj contiendra les fichiers compilés (.o)
+src contiendra les fichiers code (.c)
