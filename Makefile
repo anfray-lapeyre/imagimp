@@ -9,7 +9,7 @@ endif
 CC = gcc
 CFLAGS = -Wall -std=c11
 
-
+BIN_PATH = bin
 APP_BIN = imagimp
 
 SRC_PATH = src
@@ -22,7 +22,6 @@ ifeq ($(OS),windows)
 
 
 	LDFLAGS  =  -lm  
-	BIN_PATH = .
 	
 	SRC_FILES = $(wildcard */*.c)
 	OBJ_FILES = $(patsubst $(SRC_PATH)/%.c,$(OBJ_PATH)/%.o, $(SRC_FILES))
@@ -30,9 +29,9 @@ ifeq ($(OS),windows)
 	ALL_CMDA = if not exist "$(BIN_PATH)" mkdir $(BIN_PATH)
 	ALL_CMDB = if not exist "$(@D)" mkdir "$(@D)"	
 	CLEAN_CMD = del /s obj\* $(BIN_PATH)\$(APP_BIN).exe 
-	RUN_CMD = $(APP_BIN)
+	RUN_CMD = $(BIN_PATH)\$(APP_BIN)
 else
-	BIN_PATH = bin
+
 	
 	SRC_FILES = $(shell find $(SRC_PATH) -type f -name '*.c')
 	OBJ_FILES = $(patsubst $(SRC_PATH)/%.c,$(OBJ_PATH)/%.o, $(SRC_FILES))
@@ -51,7 +50,7 @@ else
 	ALL_CMDA =@mkdir -p $(BIN_PATH)
 	ALL_CMDB =@mkdir -p "$(@D)"
 	CLEAN_CMD = rm $(OBJ_FILES) $(BIN_PATH)/$(APP_BIN)
-	RUN_CMD = ./$(APP_BIN)
+	RUN_CMD = ./$(BIN_PATH)/$(APP_BIN)
 endif
 
 .PHONY: all clean run
