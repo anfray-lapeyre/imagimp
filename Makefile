@@ -29,7 +29,7 @@ ifeq ($(OS),windows)
 	ALL_CMDA = if not exist "$(BIN_PATH)" mkdir $(BIN_PATH)
 	ALL_CMDB = if not exist "$(@D)" mkdir "$(@D)"	
 	CLEAN_CMD = del /s obj\* $(BIN_PATH)\$(APP_BIN).exe 
-	RUN_CMD = $(BIN_PATH)\$(APP_BIN)
+	RUN_CMD = .\$(BIN_PATH)\$(APP_BIN)
 else
 
 	
