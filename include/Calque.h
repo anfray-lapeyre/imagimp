@@ -18,6 +18,7 @@ Il contiendra les prototypes de fonction nécessaires aux deux structures
 //On utilise bien un unsigned char comme prévu, sous la forme d'un entier
 typedef unsigned char Uint8;
 
+typedef struct Node_LUT * Liste_LUT;
 
 typedef struct Calque {
 	float opacity;

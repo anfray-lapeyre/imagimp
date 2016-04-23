@@ -31,9 +31,10 @@ typedef struct Node_LUT{
 
 typedef Node_LUT* Liste_LUT;
 
-//Pour les valeurs de 1 à 6 -> Crée les LUT prédéfinis
-//Pour toute autre valeur, crée une objet LUT où chaque valeur du tableau vaut 0;
-LUT creerLUT(Uint8 choix);
+//Initialise un LUT à l'identité -> chaque valeur donne cette même valeur
+LUT creerLUT();
+//Reste à implémenter l'initialisation des différents LUT possibles 
+
 
 Liste_LUT initListe_LUT();
 
