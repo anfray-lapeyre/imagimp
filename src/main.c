@@ -10,5 +10,11 @@
 
 int main(int argc, char** argv) {
 	
+	Calque test=creerCalque(0,0);
+	LoadImageNB(&test,"resources\\test.ppm");
+	printf("%d,%d\n",test.width,test.height);
+	getchar();
+	afficherImage(&test);
+	SauvegardeImage(&test, "resources\\test2.ppm");
 	return 0;
 }

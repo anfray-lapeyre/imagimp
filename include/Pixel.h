@@ -13,10 +13,12 @@ Ainsi que les fonctions nécessaires à son utilisation (et notamment l'addition e
 
 #ifndef PIXEL_H
 #define PIXEL_H
+#include <stdlib.h>
+#include <stdio.h>
 
 //On utilise bien un unsigned char comme prévu, sous la forme d'un entier
 typedef unsigned char Uint8;
-
+typedef struct Calque Calque;
 
 typedef struct Pixel
  {
@@ -40,5 +42,9 @@ Pixel addPixels(Pixel p1, Pixel p2);
 //Utilise l'algorithme additif pour superposer 2 pixels
 Pixel multiplyPixels(Pixel p1, Pixel p2);
 
+void LoadImageNB(Calque * calque,const char * chemin);
 
+void afficherImage(Calque * calque);
+
+void SauvegardeImage(Calque * calque, char* addr);
 #endif
