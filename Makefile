@@ -25,10 +25,20 @@ else
 	MKDIRP=mkdir -p
 	DLL_PREFIX=lib
 	DLL_EXTENSION=.so
-	LIBGL=-lGL -lGLU -lglut
+	
 	CLEANCMD = rm -rf obj lib
 	RUNCMD= ./$(EXE)
 	COPYCMD = cp
+	ifeq ($(UNAME_S),Linux)
+		LIBGL=-lGL -lGLU -lglut
+
+		
+    else
+		LIBGL += -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/opt/local/include
+		LIBGL += `sdl-config --libs` `sdl-config --cflags`
+		LIBGL += -framework Cocoa -framework OpenGL -lGLU -lGL -lglut
+
+	endif
 endif
 
 LIBGLIMAGIMP = lib/$(DLL_PREFIX)glimagimp$(DLL_EXTENSION)
