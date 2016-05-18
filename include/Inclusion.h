@@ -24,6 +24,7 @@ Il servira aussi à définir les constantes de notre programme
 
 //Inclusion de tous les fichiers du projet
 #include "interface.h"
+#include "outils.h"
 #include "Pixel.h"
 #include "LUT.h"
 #include "Calque.h"
