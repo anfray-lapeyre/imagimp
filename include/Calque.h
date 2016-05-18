@@ -22,9 +22,9 @@ typedef struct Node_LUT * Liste_LUT;
 
 typedef struct Calque {
 	float opacity;
-	int width;
-	int height;
-	Pixel ** image;
+	unsigned int width;
+	unsigned int height;
+	Uint8 * rvb;
 	Uint8 fusion; //Definit s'il s'additionnera ou se multipliera aux autres calques
 	Liste_LUT luts;
 }Calque;

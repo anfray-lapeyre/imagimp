@@ -5,4 +5,4 @@
 *					Prog. et Algorithmique 2
 *							IMAC1
 */
-#include "../include/Histogramme.h"
+#include "../../include/Histogramme.h"

@@ -5,7 +5,7 @@
 *					Prog. et Algorithmique 2
 *							IMAC1
 */
-#include "../include/Calque.h"
+#include "../../include/Calque.h"
 
 Calque creerCalque(int width, int height){
 	Calque res;

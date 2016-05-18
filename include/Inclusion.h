@@ -23,6 +23,7 @@ Il servira aussi à définir les constantes de notre programme
 #define max_Value 255
 
 //Inclusion de tous les fichiers du projet
+#include "interface.h"
 #include "Pixel.h"
 #include "LUT.h"
 #include "Calque.h"

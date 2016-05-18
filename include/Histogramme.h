@@ -22,7 +22,7 @@ typedef struct Histogramme{
 }Histogramme;
 
 //Permet de générer l'histogramme rvb par rapport à une image
-Histogramme* createHisto(Pixel** image,int width, int height);
+Histogramme* createHisto(Uint8 * rvb,int width, int height);
 
 
 

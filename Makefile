@@ -1,72 +1,74 @@
 SYS = $(shell gcc -dumpmachine)
 ifneq (,$(findstring mingw,$(SYS)))
-	OS=windows
+OS=windows
 else
-	OS=other
+OS=unix
 endif
 
+.PHONY: all clean mrproper re dirs
 
 CC = gcc
-CFLAGS = -Wall -std=c11
-
-BIN_PATH = bin
-APP_BIN = imagimp
-
-SRC_PATH = src
-OBJ_PATH = obj
-INC_PATH = -I include
-	
-LIB_PATH = lib
+CFLAGS = -Wall -Iinclude -g -O2
+LDLIBS = -fPIC -Llib -lglimagimp -lm
+EXE = bin/imagimp$
 
 ifeq ($(OS),windows)
-
-
-	LDFLAGS  =  -lm  
-	
-	SRC_FILES = $(wildcard */*.c)
-	OBJ_FILES = $(patsubst $(SRC_PATH)/%.c,$(OBJ_PATH)/%.o, $(SRC_FILES))
-
-	ALL_CMDA = if not exist "$(BIN_PATH)" mkdir $(BIN_PATH)
-	ALL_CMDB = if not exist "$(@D)" mkdir "$(@D)"	
-	CLEAN_CMD = del /s obj\* $(BIN_PATH)\$(APP_BIN).exe 
-	RUN_CMD = .\$(BIN_PATH)\$(APP_BIN)
+	MKDIRP=mkdir
+	DLL_PREFIX=
+	DLL_EXTENSION=.dll
+	LIBGL=-lopengl32 -lglu32 -lfreeglut
+	CLEANCMD = if exist obj ( rmdir /Q /S obj lib )
+	RUNCMD= $(EXE)
+	COPYCMD = xcopy /y /i
 else
-
-	
-	SRC_FILES = $(shell find $(SRC_PATH) -type f -name '*.c')
-	OBJ_FILES = $(patsubst $(SRC_PATH)/%.c,$(OBJ_PATH)/%.o, $(SRC_FILES))
-	
-	UNAME_S := $(shell uname -s)
-    ifeq ($(UNAME_S),Linux)
-		LDFLAGS = -lm
-
-		
-    else
-		LDFLAGS =-lm -framework Cocoa
-
-	endif
-	
-	
-	ALL_CMDA =@mkdir -p $(BIN_PATH)
-	ALL_CMDB =@mkdir -p "$(@D)"
-	CLEAN_CMD = rm $(OBJ_FILES) $(BIN_PATH)/$(APP_BIN)
-	RUN_CMD = ./$(BIN_PATH)/$(APP_BIN)
+	LDLIBS+=-Wl,-rpath=lib -Wl,-rpath=../lib
+	MKDIRP=mkdir -p
+	DLL_PREFIX=lib
+	DLL_EXTENSION=.so
+	LIBGL=-lGL -lGLU -lglut
+	CLEANCMD = rm -rf obj lib
+	RUNCMD= ./$(EXE)
+	COPYCMD = cp
 endif
 
-.PHONY: all clean run
+LIBGLIMAGIMP = lib/$(DLL_PREFIX)glimagimp$(DLL_EXTENSION)
 
-all: $(APP_BIN)
 
-$(APP_BIN): $(OBJ_FILES)
-	$(ALL_CMDA)
-	$(CC) -o $(BIN_PATH)/$(APP_BIN) $(OBJ_FILES) $(LDFLAGS)
+all: $(LIBGLIMAGIMP) $(EXE)
 
-$(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
-	$(ALL_CMDB)
-	$(CC) -c $< -o $@ $(CFLAGS) $(INC_PATH)$(LDFLAGS)
+dirs: bin lib obj/glimagimp obj/imagimp
+obj:
+	$(MKDIRP) "$@"
+obj/glimagimp: | obj
+	$(MKDIRP) "$@"
+obj/imagimp: | obj
+	$(MKDIRP) "$@"
+lib:
+	$(MKDIRP) "$@"
+bin:
+	$(MKDIRP) "$@"
 
+
+obj/imagimp/%.o : src/imagimp/%.c | dirs
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(EXE): $(addsuffix .o, \
+			$(addprefix obj/imagimp/, \
+				$(notdir \
+					$(basename \
+						$(wildcard src/imagimp/*.c)))))
+	$(CC) $(CFLAGS) $^ -o $@ $(LDLIBS) $(LIBGL)
+
+obj/glimagimp/%.o: src/glimagimp/%.c | dirs
+	$(CC) $(CFLAGS) -c $< -o $@
+
+$(LIBGLIMAGIMP): obj/glimagimp/interface.o \
+			     obj/glimagimp/outils.o
+	$(CC) $(CFLAGS) -shared $^ -o $@ $(LIBGL) -lm
+	$(COPYCMD) "$(@D)" "bin"
 clean:
-	$(CLEAN_CMD)
-	
-run : 
-	$(RUN_CMD)
+	$(CLEANCMD)
+run:
+	$(RUNCMD)
+mrproper: clean all
+re: mrproper

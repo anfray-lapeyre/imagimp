@@ -5,4 +5,4 @@
 *					Prog. et Algorithmique 2
 *							IMAC1
 */
-#include "../include/LUT.h"
+#include "../../include/LUT.h"
