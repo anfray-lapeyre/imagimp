@@ -41,12 +41,26 @@
 #endif
 
 #include <stdio.h>
-#include <GL/glut.h>
+//#include <GL/glut.h>
 #include "outils.h"
 #include <math.h>
-#include <GL/glu.h>
+//#include <GL/glu.h>
+//#include <GL/gl.h>
+//#include <GL/glext.h>
+
+
+#ifdef __APPLE__
+#include <OpenGL/gl.h>
+#include <OpenGL/glu.h>
+#include <GLUT/glut.h>
+#include <OpenGL/glext.h>
+#else
 #include <GL/gl.h>
+#include <GL/glut.h>
+#include <GL/glu.h>
 #include <GL/glext.h>
+#endif
+
 
 #ifdef WIN32
 PFNGLACTIVETEXTUREARBPROC __myglextActiveTextureARB;
