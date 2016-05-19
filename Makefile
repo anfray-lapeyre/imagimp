@@ -21,7 +21,6 @@ ifeq ($(OS),windows)
 	RUNCMD= $(EXE)
 	COPYCMD = xcopy /y /i "$(@D)" "bin"
 else
-	LDLIBS+=-Wl,-rpath=lib -Wl,-rpath=../lib
 	MKDIRP=mkdir -p
 	DLL_PREFIX=lib
 	DLL_EXTENSION=.so
@@ -31,12 +30,13 @@ else
 	
 	ifeq ($(UNAME_S),Linux)
 		LIBGL=-lGL -lGLU -lglut
+		LDLIBS+=-Wl,-rpath=lib -Wl,-rpath=../lib
 		COPYCMD = cp "$(@D)" "bin"
 		
     else
 		LIBGL += -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/opt/local/include
 		LIBGL += `sdl-config --libs` `sdl-config --cflags`
-		LIBGL += -framework Cocoa -framework OpenGL -lGLU -lGL -lglut
+		LIBGL += -framework Cocoa -framework OpenGL -framework GLUT
 
 	endif
 endif
