@@ -8,7 +8,7 @@ endif
 .PHONY: all clean mrproper re dirs
 
 CC = gcc
-CFLAGS = -Wall -Iinclude -g -O2
+CFLAGS = -Wall -Iinclude -g -O2 -std=c11
 LDLIBS = -fPIC -Llib -lglimagimp -lm
 EXE = bin/imagimp$
 

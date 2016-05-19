@@ -16,13 +16,16 @@ ainsi que les prototype de fonction concernant l'histogramme
 #define HISTOGRAMME_H
 //On inclue le reste du projet
 #include "Inclusion.h"
+typedef unsigned char Uint8;
 
 typedef struct Histogramme{
-	int val[max_Value];
+	Uint8 val[max_Value];
 }Histogramme;
 
 //Permet de générer l'histogramme rvb par rapport à une image
 Histogramme* createHisto(Uint8 * rvb,int width, int height);
+
+Calque HistoToImage(Histogramme h);
 
 
 
