@@ -38,27 +38,27 @@ Calque HistoToImage(Histogramme h){
 	// printf("%d",h.val[255]);
 	
 	Calque res;
-	res.width=max;
-	res.height=256;
+	res.width=max+1;
+	res.height=255;
 	res.fusion=0;
 	res.opacity=1.;
 	
 	res.rvb=malloc(sizeof(Uint8)*res.width*res.height*3);
 	for(int i=0;i<res.width*res.height;i++){
 		// printf("%d,",i/(res.width));
-		if(h.r[i/(res.width)]>=i%(res.width)){
+		if(h.r[i/(res.width)]>i%(res.width)){
 			
 			res.rvb[i*3]=0;
 		}else{
 			res.rvb[i*3]=255;
 		}
-		if(h.v[i/(res.width)]>=i%(res.width)){
+		if(h.v[i/(res.width)]>i%(res.width)){
 			
 			res.rvb[i*3+1]=0;
 		}else{
 			res.rvb[i*3+1]=255;
 		}
-		if(h.b[i/(res.width)]>=i%(res.width)){
+		if(h.b[i/(res.width)]>i%(res.width)){
 			res.rvb[i*3+2]=0;
 		}else{
 			res.rvb[i*3+2]=255;

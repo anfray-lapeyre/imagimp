@@ -25,7 +25,7 @@ typedef struct Calque {
 	unsigned int width;
 	unsigned int height;
 	Uint8 * rvb;
-	Uint8 fusion; //Definit s'il s'additionnera ou se multipliera aux autres calques
+	int fusion; //Definit s'il s'additionnera ou se multipliera aux autres calques
 	Liste_LUT luts;
 }Calque;
 
@@ -47,7 +47,7 @@ void changerFusion(Calque * c,int fusion);
 
 Liste_Calque initListe_Calque();
 
-int isVideListe_Calque(Liste_Calque);
+int isVideListe_Calque(Liste_Calque liste);
 
 void addNodeCalque(Liste_Calque liste, Node_Calque* node);
 

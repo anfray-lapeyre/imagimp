@@ -13,7 +13,7 @@ int main(int argc, char** argv) {
 	test.rvb=LoadPPM("resources\\FreaksBroz.512.ppm",&(test.width),&(test.height));
 	Histogramme * histo = createHisto(test.rvb,test.width, test.height);
 	test=HistoToImage(*histo);
-	initGLIMAGIMP_IHM(test.width,test.height,test.rvb,test.width,test.height,0);
+	initGLIMAGIMP_IHM(test.width,test.height,test.rvb,650,400,0);
 	setFullsreen(0);
 	launchApp();
 	
