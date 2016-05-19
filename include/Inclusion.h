@@ -18,6 +18,10 @@ Il servira aussi à définir les constantes de notre programme
 #ifndef INCLUSION_H
 #define INCLUSION_H
 
+
+
+#define MIN(x, y) ((x) < (y)) ? (x) : (y)
+#define MAX(x, y) ((x) > (y)) ? (x) : (y)
 //On rajoute ici les définitions de constantes
 
 #define max_Value 256
