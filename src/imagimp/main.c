@@ -12,7 +12,7 @@ int main(int argc, char** argv) {
 	Calque test=creerCalque(0,0);
 	test.rvb=LoadPPM("resources\\FreaksBroz.512.ppm",&(test.width),&(test.height));
 	Histogramme * histo = createHisto(test.rvb,test.width, test.height);
-	// test=HistoToImage(*histo);
+	test=HistoToImage(*histo);
 	initGLIMAGIMP_IHM(test.width,test.height,test.rvb,test.width,test.height,0);
 	setFullsreen(0);
 	launchApp();

@@ -10,8 +10,9 @@
 Histogramme* createHisto(Uint8 * rvb,int width, int height){
 	Histogramme * histo =malloc(sizeof(Histogramme));
 	for(int i=0;i<width*height*3;i+=3){
-		histo->val[(Uint8)((rvb[i]+rvb[i+1]+rvb[i+2])/3)]++;
-
+		histo->r[rvb[i]]++;
+		histo->v[rvb[i+1]]++;
+		histo->b[rvb[i+2]]++;
 	}
 	
 	// for(int j=0;j<256;j++){
@@ -24,8 +25,14 @@ Histogramme* createHisto(Uint8 * rvb,int width, int height){
 Calque HistoToImage(Histogramme h){
 	int max=0;
 	for(int i=0;i<256;i++){
-		if(h.val[i]>max){
-			max=h.val[i];
+		if(h.r[i]>max){
+			max=h.r[i];
+		}
+		if(h.v[i]>max){
+			max=h.v[i];
+		}
+		if(h.b[i]>max){
+			max=h.b[i];
 		}
 	}
 	// printf("%d",h.val[255]);
@@ -39,13 +46,21 @@ Calque HistoToImage(Histogramme h){
 	res.rvb=malloc(sizeof(Uint8)*res.width*res.height*3);
 	for(int i=0;i<res.width*res.height;i++){
 		// printf("%d,",i/(res.width));
-		if(h.val[i/(res.width)]>=i%(res.width)){
+		if(h.r[i/(res.width)]>=i%(res.width)){
+			
 			res.rvb[i*3]=0;
-			res.rvb[i*3+1]=0;
-			res.rvb[i*3+2]=0;
 		}else{
 			res.rvb[i*3]=255;
+		}
+		if(h.v[i/(res.width)]>=i%(res.width)){
+			
+			res.rvb[i*3+1]=0;
+		}else{
 			res.rvb[i*3+1]=255;
+		}
+		if(h.b[i/(res.width)]>=i%(res.width)){
+			res.rvb[i*3+2]=0;
+		}else{
 			res.rvb[i*3+2]=255;
 		}
 	}

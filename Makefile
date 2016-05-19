@@ -19,7 +19,7 @@ ifeq ($(OS),windows)
 	LIBGL=-lopengl32 -lglu32 -lfreeglut
 	CLEANCMD = if exist obj ( rmdir /Q /S obj lib )
 	RUNCMD= $(EXE)
-	COPYCMD = xcopy /y /i
+	COPYCMD = xcopy /y /i "$(@D)" "bin"
 else
 	LDLIBS+=-Wl,-rpath=lib -Wl,-rpath=../lib
 	MKDIRP=mkdir -p
@@ -28,10 +28,10 @@ else
 	
 	CLEANCMD = rm -rf obj lib
 	RUNCMD= ./$(EXE)
-	COPYCMD = cp
+	
 	ifeq ($(UNAME_S),Linux)
 		LIBGL=-lGL -lGLU -lglut
-
+		COPYCMD = cp "$(@D)" "bin"
 		
     else
 		LIBGL += -I/Library/Frameworks/SDL.framework/Headers -I/Library/Frameworks/SDL_image.framework/Headers -I/opt/local/include
@@ -75,7 +75,7 @@ obj/glimagimp/%.o: src/glimagimp/%.c | dirs
 $(LIBGLIMAGIMP): obj/glimagimp/interface.o \
 			     obj/glimagimp/outils.o
 	$(CC) $(CFLAGS) -shared $^ -o $@ $(LIBGL) -lm
-	$(COPYCMD) "$(@D)" "bin"
+	$(COPYCMD) 
 clean:
 	$(CLEANCMD)
 run:
