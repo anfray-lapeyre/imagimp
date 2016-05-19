@@ -33,8 +33,6 @@ typedef Node_LUT* Liste_LUT;
 
 //Initialise un LUT à l'identité -> chaque valeur donne cette même valeur
 LUT creerLUT();
-//Reste à implémenter l'initialisation des différents LUT possibles 
-
 
 Liste_LUT initListe_LUT();
 
@@ -45,6 +43,12 @@ void addNodeLUT(Liste_LUT liste, Node_LUT* node);
 void deleteLastNodeLUT(Liste_LUT liste);
 
 void freeListe_LUT(Liste_LUT liste);
+
+void ADDLUM(LUT * lut , int intensity);
+
+void DIMLUM(LUT * lut , int intensity);
+
+void INVERT(LUT * lut);
 
 
 #endif

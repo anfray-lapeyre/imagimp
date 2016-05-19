@@ -20,7 +20,7 @@ Il servira aussi à définir les constantes de notre programme
 
 //On rajoute ici les définitions de constantes
 
-#define max_Value 255
+#define max_Value 256
 
 //Inclusion de tous les fichiers du projet
 #include "interface.h"
