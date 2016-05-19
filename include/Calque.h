@@ -55,8 +55,9 @@ void deleteLastNodeCalque(Liste_Calque liste);
 
 void freeListe_Calque(Liste_Calque liste);
 
-Calque fusionCalques(Calque c1, Calque c2);
+Calque *fusionCalques(Calque c1, Calque c2);
 
+Calque * cloneCalque(Calque * c);
 
 
 
