@@ -11,9 +11,7 @@
 LUT creerLUT(){
 	LUT lut;
 
-	int i;
-
-	for(i = 0 ; i < max_Value ; i++){
+	for(int i = 0 ; i < max_Value ; i++){
 		lut.val[i] = i;
 	}
 
@@ -22,9 +20,15 @@ LUT creerLUT(){
 
 Liste_LUT initListe_LUT(){
 
+	Liste_LUT liste = malloc(sizeof(Liste_LUT));
+	liste->next = NULL;
+	liste->previous = NULL;
+
+	return liste;
 }
 
 int isVideListe_LUT(Liste_LUT liste){
+
 	return 0;
 }
 
@@ -46,9 +50,8 @@ void ADDLUM(LUT * lut , int intensity){
 		return;
 	}
 
-	int i;
-	for(i = 0 ; i < max_Value ; i++){
-		lut->val[i] += intensity ; 
+	for(int i = 0 ; i < max_Value ; i++){
+		lut->val[i] = MIN(255,lut->val[i]+intensity); 
 	}
 }
 
@@ -58,9 +61,8 @@ void DIMLUM(LUT * lut , int intensity){
 		return;
 	}
 
-	int i;
-	for(i = 0 ; i < max_Value ; i++){
-		lut->val[i] -= intensity ; 
+	for(int i = 0 ; i < max_Value ; i++){
+		lut->val[i] = MAX(0,lut->val[i]-intensity);
 	}
 }
 
@@ -70,9 +72,8 @@ void INVERT(LUT * lut){
 		return;
 	}
 
-	int i ;
-	for(i = 0 ; i < max_Value ; i++){
-		lut->val[i] = lut->val[128-i] ;
+	for(int i = 0 ; i < max_Value ; i++){
+		lut->val[i] = MAX(0, MIN(255, lut->val[255-i]));
 	}
 }
 
@@ -82,8 +83,7 @@ void ADDCON(LUT * lut , float contraste){
 		return;
 	}
 
-	int i ;
-	for(i = 0 ; i < max_Value ; i++){
+	for(int i = 0 ; i < max_Value ; i++){
 		lut->val[i] = MAX(0, MIN(255, 128 - (128-lut->val[i]) * contraste ));
 	}
 
@@ -95,17 +95,32 @@ void DIMCON(LUT * lut , float contraste){
 		return;
 	}
 
-	int i ;
-	for(i = 0 ; i < max_Value ; i++){
+	for(int i = 0 ; i < max_Value ; i++){
 		lut->val[i] = MAX(0, MIN(255, 128 - (128-lut->val[i]) * contraste ));
 	}
 
 }
 
-Calque * appliquerLUT(LUT * lut , Calque * calque){
+Calque appliquerLUT(LUT * lut , Calque calque){
 
-	Calque * calqueLut = cloneCalque(calque);
+	Calque calqueLut = cloneCalque(calque);
 
-	calqueLut->rvb = lut->val[i];
+	for(int i = 0 ; i < calqueLut.height*calqueLut.width*3 ; i++){
+
+		calqueLut.rvb[i] = lut->val[calqueLut.rvb[i]];
+	}
+
+	return calqueLut;
+}
+
+LUT fusionLUT(LUT * a, LUT * b){
+
+	LUT fusion ;
+
+	for(int i = 0 ; i < max_Value ; i++){
+		fusion.val[i] = b->val[a->val[i]];
+	}
+
+	return fusion;
 }
 

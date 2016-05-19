@@ -57,7 +57,7 @@ void freeListe_Calque(Liste_Calque liste);
 
 Calque *fusionCalques(Calque c1, Calque c2);
 
-Calque * cloneCalque(Calque * c);
+Calque cloneCalque(Calque c);
 
 
 

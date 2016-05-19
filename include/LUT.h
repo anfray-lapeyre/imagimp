@@ -29,7 +29,7 @@ typedef struct Node_LUT{
 	LUT lut;
 }Node_LUT;
 
-typedef Node_LUT* Liste_LUT;
+typedef Node_LUT * Liste_LUT;
 
 //Initialise un LUT à l'identité -> chaque valeur donne cette même valeur
 LUT creerLUT();
@@ -54,8 +54,8 @@ void ADDCON(LUT * lut , float contraste);
 
 void DIMCON(LUT * lut, float contraste);
 
-void SEPIA(LUT * lut);
+Calque appliquerLUT(LUT * lut , Calque calque);
 
-Calque * appliquerLUT(LUT * lut , Calque * calque);
+LUT fusionLUT(LUT * a, LUT * b);
 
 #endif

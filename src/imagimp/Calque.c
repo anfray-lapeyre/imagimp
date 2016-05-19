@@ -55,17 +55,16 @@ Calque * fusionCalques(Calque c1, Calque c2){
 	
 }
 
-Calque * cloneCalque(Calque * c){
-	if(NULL==c)
-		return NULL;
-	Calque * clone = malloc(sizeof(Calque));
-	clone->width=c->width;
-	clone->height=c->height;
-	clone->fusion=c->fusion;
-	clone->opacity=c->opacity;
-	clone->rvb=malloc(sizeof(Uint8)*clone->width*clone->height*3);
-	for(int i=0;i<clone->width*clone->height*3;i++){
-		clone->rvb[i]=c->rvb[i];
+Calque cloneCalque(Calque c){
+
+	Calque clone ;
+	clone.width=c.width;
+	clone.height=c.height;
+	clone.fusion=c.fusion;
+	clone.opacity=c.opacity;
+	clone.rvb=malloc(sizeof(Uint8)*clone.width*clone.height*3);
+	for(int i=0;i<clone.width*clone.height*3;i++){
+		clone.rvb[i]=c.rvb[i];
 	}
 	return clone;
 }
