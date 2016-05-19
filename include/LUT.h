@@ -38,11 +38,9 @@ Liste_LUT initListe_LUT();
 
 int isVideListe_LUT(Liste_LUT liste);
 
-void addNodeLUT(Liste_LUT liste, Node_LUT* node);
+void addNodeLUT(Liste_LUT liste, LUT lut);
 
 void deleteLastNodeLUT(Liste_LUT liste);
-
-void freeListe_LUT(Liste_LUT liste);
 
 void ADDLUM(LUT * lut , int intensity);
 
@@ -57,5 +55,7 @@ void DIMCON(LUT * lut, float contraste);
 Calque appliquerLUT(LUT * lut , Calque calque);
 
 LUT fusionLUT(LUT * a, LUT * b);
+
+LUT fusionListeLUT(Liste_LUT liste);
 
 #endif

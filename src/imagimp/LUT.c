@@ -20,28 +20,83 @@ LUT creerLUT(){
 
 Liste_LUT initListe_LUT(){
 
-	Liste_LUT liste = malloc(sizeof(Liste_LUT));
+	Liste_LUT liste = malloc(sizeof(Node_LUT));
 	liste->next = NULL;
 	liste->previous = NULL;
+
+	liste->lut = creerLUT();
 
 	return liste;
 }
 
 int isVideListe_LUT(Liste_LUT liste){
 
-	return 0;
+	return NULL == liste->next;
 }
 
-void addNodeLUT(Liste_LUT liste, Node_LUT* node){
+void addNodeLUT(Liste_LUT liste, LUT lut){
 
+	if(NULL == liste){
+		return;
+	}
+
+	if(isVideListe_LUT(liste)){
+		liste->next = liste;
+		liste->previous = liste;
+
+		for(int i = 0 ; i < max_Value ; i++){
+			liste->lut.val[i] = lut.val[i];
+		}
+
+		return;
+	}
+
+	if(liste->next == liste){
+		Liste_LUT newListe = malloc(sizeof(Node_LUT));
+		newListe->next = liste;
+		newListe->previous = liste;
+
+		liste->next = newListe;
+		liste->previous = newListe;
+
+		for(int i = 0 ; i < max_Value ; i++){
+			newListe->lut.val[i] = lut.val[i];
+		}
+
+		return;
+	}
+
+	Liste_LUT newListe = malloc(sizeof(Node_LUT));
+	newListe->next = liste;
+	newListe->previous = liste->previous;
+
+	liste->previous->next = newListe;
+	liste->previous = newListe;
+
+	for(int i = 0 ; i < max_Value ; i++){
+		newListe->lut.val[i] = lut.val[i];
+	}
 }
 
 void deleteLastNodeLUT(Liste_LUT liste){
 
-}
+	if(NULL == liste || isVideListe_LUT(liste)){
+		return;
+	}
 
-void freeListe_LUT(Liste_LUT liste){
+	if(liste->next == liste){
+		liste->next = NULL;
+		liste->previous = NULL;
 
+		return;
+	}
+
+	Node_LUT * tmp;
+
+	liste->previous->previous->next = liste;
+	tmp = liste->previous->previous;
+	free(liste->previous);
+	liste->previous = tmp;
 }
 
 void ADDLUM(LUT * lut , int intensity){
@@ -79,7 +134,7 @@ void INVERT(LUT * lut){
 
 void ADDCON(LUT * lut , float contraste){
 
-	if(NULL == lut && contraste <= 1.){
+	if(NULL == lut || contraste <= 1.){
 		return;
 	}
 
@@ -91,7 +146,7 @@ void ADDCON(LUT * lut , float contraste){
 
 void DIMCON(LUT * lut , float contraste){
 
-	if(NULL == lut && contraste >= 1.){
+	if(NULL == lut || contraste >= 1.){
 		return;
 	}
 
@@ -122,5 +177,33 @@ LUT fusionLUT(LUT * a, LUT * b){
 	}
 
 	return fusion;
+}
+
+LUT fusionListeLUT(Liste_LUT liste){
+
+	LUT res = creerLUT();
+
+	if(NULL == liste){
+		return res;
+	}
+
+	Node_LUT * tmp = liste ;
+
+	if(isVideListe_LUT(liste)){
+		return res;
+	}
+	else{
+
+		res = fusionLUT(&res , &tmp->lut);
+		tmp = tmp->next;
+
+		while(tmp != liste){
+			printf("PROUT\n");
+			res = fusionLUT(&tmp->lut , &res);
+			tmp = tmp->next;
+
+		}
+	}
+	return res;
 }
 
