@@ -36,7 +36,7 @@ LUT creerLUT();
 
 Liste_LUT initListe_LUT();
 
-int isVideListe_LUT(Liste_LUT);
+int isVideListe_LUT(Liste_LUT liste);
 
 void addNodeLUT(Liste_LUT liste, Node_LUT* node);
 
@@ -50,5 +50,12 @@ void DIMLUM(LUT * lut , int intensity);
 
 void INVERT(LUT * lut);
 
+void ADDCON(LUT * lut , float contraste);
+
+void DIMCON(LUT * lut, float contraste);
+
+void SEPIA(LUT * lut);
+
+Calque * appliquerLUT(LUT * lut , Calque * calque);
 
 #endif

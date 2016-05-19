@@ -2,3 +2,7 @@
 bin/imagimp.exe
 *.dll
 bin/imagimp
+
+lib/libglimagimp.so
+
+*.so

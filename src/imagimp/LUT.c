@@ -42,6 +42,10 @@ void freeListe_LUT(Liste_LUT liste){
 
 void ADDLUM(LUT * lut , int intensity){
 
+	if(NULL == lut){
+		return;
+	}
+
 	int i;
 	for(i = 0 ; i < max_Value ; i++){
 		lut->val[i] += intensity ; 
@@ -49,6 +53,10 @@ void ADDLUM(LUT * lut , int intensity){
 }
 
 void DIMLUM(LUT * lut , int intensity){
+
+	if(NULL == lut){
+		return;
+	}
 
 	int i;
 	for(i = 0 ; i < max_Value ; i++){
@@ -58,8 +66,46 @@ void DIMLUM(LUT * lut , int intensity){
 
 void INVERT(LUT * lut){
 
+	if(NULL == lut){
+		return;
+	}
+
 	int i ;
 	for(i = 0 ; i < max_Value ; i++){
 		lut->val[i] = lut->val[128-i] ;
 	}
 }
+
+void ADDCON(LUT * lut , float contraste){
+
+	if(NULL == lut && contraste <= 1.){
+		return;
+	}
+
+	int i ;
+	for(i = 0 ; i < max_Value ; i++){
+		lut->val[i] = MAX(0, MIN(255, 128 - (128-lut->val[i]) * contraste ));
+	}
+
+}
+
+void DIMCON(LUT * lut , float contraste){
+
+	if(NULL == lut && contraste >= 1.){
+		return;
+	}
+
+	int i ;
+	for(i = 0 ; i < max_Value ; i++){
+		lut->val[i] = MAX(0, MIN(255, 128 - (128-lut->val[i]) * contraste ));
+	}
+
+}
+
+Calque * appliquerLUT(LUT * lut , Calque * calque){
+
+	Calque * calqueLut = cloneCalque(calque);
+
+	calqueLut->rvb = lut->val[i];
+}
+
