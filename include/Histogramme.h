@@ -19,9 +19,9 @@ ainsi que les prototype de fonction concernant l'histogramme
 typedef unsigned char Uint8;
 
 typedef struct Histogramme{
-	Uint8 r[max_Value];
-	Uint8 v[max_Value];
-	Uint8 b[max_Value];
+	int r[max_Value];
+	int v[max_Value];
+	int b[max_Value];
 }Histogramme;
 
 //Permet de générer l'histogramme rvb par rapport à une image

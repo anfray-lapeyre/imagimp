@@ -32,21 +32,21 @@ int main(int argc, char** argv) {
 
 	ADDLUM(&lut, 128);
 
-	addNodeLUT(liste, lut);
+	// addNodeLUT(liste, lut);
 
-	addNodeLUT(liste, lut);
+	// addNodeLUT(liste, lut);
 
-	lut = fusionListeLUT(liste);
+	// lut = fusionListeLUT(liste);
 
-	deleteLastNodeLUT(liste);
+	// deleteLastNodeLUT(liste);
 
-	deleteLastNodeLUT(liste);
+	// deleteLastNodeLUT(liste);
 
-	test = appliquerLUT(&lut,test);
+	// test = appliquerLUT(&lut,test);
 
 	Histogramme * histo = createHisto(test.rvb,test.width, test.height);
 	test=HistoToImage(*histo);
-
+	
 	initGLIMAGIMP_IHM(test.width,test.height,test.rvb,650,400,0);
 	setFullsreen(0);
 	launchApp();
