@@ -13,6 +13,7 @@ Calque creerCalque(int width, int height){
 	res.height=height;
 	res.fusion=0;
 	res.opacity=1.;
+	res.rvb = NULL;
 	return res;
 	
 }
@@ -52,8 +53,8 @@ void addNodeCalque(Liste_Calque liste, Node_Calque* node){
 		return;
 	}
 
-	if(isVideListe_Calque(liste)){
-		*(liste->calque)=cloneCalque(*node->calque);
+	if(isVideListe_Calque(liste)){	
+		*(liste->calque)=cloneCalque(*(node->calque));
 		free(node);
 		return;
 	}
@@ -74,15 +75,18 @@ void addNewCalque(Liste_Calque liste){
 	}
 	Node_Calque * c = malloc(sizeof(Node_Calque));
 	c->calque=malloc(sizeof(Calque));
+
 	if(isVideListe_Calque(liste)){
-		*c->calque=creerCalque(600,400);	
+		*(c->calque)=creerCalque(600,400);	
+
 	}else{
-		*c->calque=creerCalque(liste->calque->width,liste->calque->height);
+		*(c->calque)=creerCalque(liste->calque->width,liste->calque->height);
 	}
 	c->calque->rvb=malloc(sizeof(Uint8)*c->calque->height*c->calque->width*3);
 	for(int i=0;i<c->calque->height*c->calque->width*3;i++){
 		c->calque->rvb[i]=255;
 	}
+
 	addNodeCalque(liste,c);
 }
 
@@ -145,7 +149,6 @@ Calque * fusionCalques(Liste_Calque liste){
 }
 
 Calque cloneCalque(Calque c){
-
 	Calque clone ;
 	clone.width=c.width;
 	clone.height=c.height;
