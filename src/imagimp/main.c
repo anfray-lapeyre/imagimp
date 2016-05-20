@@ -44,8 +44,23 @@ int main(int argc, char** argv) {
 
 	// test = appliquerLUT(&lut,test);
 
-	Histogramme * histo = createHisto(test.rvb,test.width, test.height);
-	test=HistoToImage(*histo);
+	// Histogramme * histo = createHisto(test.rvb,test.width, test.height);
+	// test=HistoToImage(*histo);
+
+
+
+
+
+
+
+	// Calque calque = creerCalque(800,600);
+
+	// Liste_Calque listeCalque = initListe_Calque();
+
+
+
+	
+
 	
 	initGLIMAGIMP_IHM(test.width,test.height,test.rvb,650,400,0);
 	setFullsreen(0);

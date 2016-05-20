@@ -2,15 +2,5 @@
 bin/imagimp.exe
 *.dll
 bin/imagimp
-
-lib/libglimagimp.so
-
 *.so
-
-*.so
-
-lib/libglimagimp.so
-
-*.so
-
 lib/libglimagimp.so

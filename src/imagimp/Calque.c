@@ -17,7 +17,6 @@ Calque creerCalque(int width, int height){
 	
 }
 
-
 void changerOpacite(Calque * c, float new_opacity){
 	if(NULL == c)
 		return;
@@ -32,18 +31,78 @@ void changerFusion(Calque * c,int fusion){
 }
 
 Liste_Calque initListe_Calque(){
-	
+
+	Liste_Calque liste = malloc(sizeof(Node_Calque));
+	liste->next = NULL;
+	liste->previous = NULL;
+
+	liste->calque = creerCalque(800, 600);
+
+	return liste;
 }
 
 int isVideListe_Calque(Liste_Calque liste){
-	
+
+	return NULL == liste->next;
 }
 
 void addNodeCalque(Liste_Calque liste, Node_Calque* node){
+
+	if(NULL == liste){
+		return;
+	}
+
+	if(isVideListe_Calque(liste)){
+		liste->next = liste;
+		liste->previous =liste;
+
+		return;
+	}
+
+	if(liste->next == liste){
+
+		Liste_Calque newCalque = malloc(sizeof(Node_Calque));
+		newCalque->next = liste;
+		newCalque->previous = liste;
+
+		liste->next = newCalque;
+		liste->previous = newCalque;
+
+		return;
+
+	}
+
+	Liste_Calque newCalque = malloc(sizeof(Node_Calque));
+
+	newCalque->next = liste;
+	newCalque->previous = liste->previous;
+
+	liste->previous->next = newCalque;
+	liste->previous = newCalque;
 	
 }
 
 void deleteLastNodeCalque(Liste_Calque liste){
+
+	if(NULL == liste || isVideListe_Calque(liste)){
+		return;
+	}
+
+	if(liste->next == liste){
+		liste->next = NULL;
+		liste->previous = NULL;
+
+		return;
+	}
+
+	Node_Calque * tmp;
+
+	liste->previous->previous->next = NULL;
+	tmp = liste->previous->previous = NULL;
+
+	free(liste->previous);
+
+	liste->previous = tmp;
 	
 }
 
