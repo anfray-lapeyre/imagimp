@@ -61,6 +61,8 @@ Calque *fusionCalques(Liste_Calque liste);
 
 Calque cloneCalque(Calque c);
 
+void addLUTCalque(Liste_Calque liste, int choix, float param);
+
 
 
 #endif

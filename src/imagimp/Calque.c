@@ -157,3 +157,39 @@ Calque cloneCalque(Calque c){
 	}
 	return clone;
 }
+
+void addLUTCalque(Liste_Calque liste, int choix, float param){
+	if(NULL == liste || isVideListe_Calque(liste)){
+		return;
+	}
+	LUT lut=creerLUT();
+	
+	switch(choix){
+		case 0 : 
+		break;
+		case 1 : 
+			ADDLUM(&lut,param);
+		break;
+		case 2 : 
+			DIMLUM(&lut,param);
+		break;
+		case 3 : 
+			ADDCON(&lut,param);
+		break;
+		case 4 : 
+			DIMCON(&lut,param);
+		break;
+		case 5 : 
+			INVERT(&lut);
+		break;
+		
+		default:
+		
+		break;
+	}
+	addNodeLUT(liste->calque->luts,lut);
+}
+
+void retirerLUTCalque(Liste_Calque liste){
+	deleteLastNodeLUT(liste->calque->luts);
+}

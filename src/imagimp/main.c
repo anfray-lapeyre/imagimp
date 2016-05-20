@@ -10,7 +10,7 @@
 
 int main(int argc, char** argv) {
 	Calque test=creerCalque(0,0);
-	test.rvb=LoadPPM("resources/FreaksBroz.512.ppm",&(test.width),&(test.height));
+	test.rvb=LoadPPM("resources/Billes.256.ppm",&(test.width),&(test.height));
 
 	test = cloneCalque(test);
 	// LUT lut=creerLUT();
@@ -46,8 +46,8 @@ int main(int argc, char** argv) {
 
 	// test = appliquerLUT(&lut,test);
 
-	Histogramme * histo = createHisto(test.rvb,test.width, test.height);
-	test=HistoToImage(*histo);
+	// Histogramme * histo = createHisto(test.rvb,test.width, test.height);
+	// test=HistoToImage(*histo);
 
 
 
