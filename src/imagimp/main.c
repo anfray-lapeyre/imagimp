@@ -12,7 +12,6 @@ int main(int argc, char** argv) {
 	Calque test=creerCalque(0,0);
 	test.rvb=LoadPPM("resources/Billes.256.ppm",&(test.width),&(test.height));
 
-	test = cloneCalque(test);
 	// LUT lut=creerLUT();
 	// LUT lut2=creerLUT();
 
@@ -55,44 +54,61 @@ int main(int argc, char** argv) {
 		//printf("prout\n");
 	}
 
-	Calque calque = creerCalque(600,400);
-	changerFusion(&calque, 1);
+	Calque *calque =malloc(sizeof(Calque));
+	*calque= creerCalque(600,400);
+	calque->rvb=malloc(sizeof(Uint8)*calque->width*calque->height*3);
+	for(int i=0;i<calque->width*calque->height*3;i++){
+		if(i%3==2)
+			calque->rvb[i]=0;
+		else
+			calque->rvb[i]=255;
+	}
+	
 
 	// if(calque.width == 600 && calque.height == 400 && calque.fusion == 1 && calque.opacity ==1 && calque.rvb == NULL){
-	// 	printf("prout\n");
+		// printf("prout\n");
 	// }
 
-	// Node_Calque * node = malloc(sizeof(Node_Calque));
+	Node_Calque * node = malloc(sizeof(Node_Calque));
 
-	// node->calque = &calque;
+	node->calque = calque;
 
-	// printf("prout3\n");
 
-	// addNodeCalque(listeCalque, node);
+	addNodeCalque(listeCalque, node);
 
-	// printf("prout4\n");
+	printf("prout4\n");
 
-	// if(!isVideListe_Calque(listeCalque)){
-	// 	printf("prout2\n");
-	// }
-	Calque calque2 = cloneCalque(calque);
-	printf("prout2\n");
-	if(calque.width == 600 && calque.height == 400 && calque.fusion == 1 && calque.opacity ==1 && calque.rvb == NULL){
-		printf("prout\n");
-	
+	if(!isVideListe_Calque(listeCalque)){
+		printf("prout2\n");
 	}
-
-	// addNewCalque(listeCalque);
-	// if(!isVideListe_Calque(listeCalque)){
-	// }
-
-	//Calque * calque = fusionCalques(listeCalque);
-
+	
+	
+	addNewCalque(listeCalque);
+	if(!isVideListe_Calque(listeCalque) && listeCalque->next != NULL && listeCalque->next->next == NULL){
+		printf("caca\n");
+	}
 	
 
-	// initGLIMAGIMP_IHM(calque->width,calque->height,calque->rvb,800,400,0);
-	// setFullsreen(0);
-	// launchApp();
+
+	addNewCalque(listeCalque);
+	for(int i=0;i<listeCalque->next->next->calque->width*listeCalque->next->next->calque->height*3;i++){
+		if(i%3==1)
+			listeCalque->next->next->calque->rvb[i]=0;
+		else
+			listeCalque->next->next->calque->rvb[i]=255;
+	}
+	changerOpacite(listeCalque->calque, .2);
+	changerOpacite(listeCalque->next->calque, 0.5);
+	changerOpacite(listeCalque->next->next->calque, 0.2);
+	changerFusion(listeCalque->calque,0);
+	changerFusion(listeCalque->next->calque,0);
+	changerFusion(listeCalque->next->next->calque,0);
+	Calque * calque2 = fusionCalques(listeCalque);
+	
+
+	initGLIMAGIMP_IHM(calque2->width,calque2->height,calque2->rvb,800,400,0);
+	setFullsreen(0);
+	launchApp();
 	
 	
 	return 0;

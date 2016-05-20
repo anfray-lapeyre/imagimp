@@ -53,7 +53,8 @@ void addNodeCalque(Liste_Calque liste, Node_Calque* node){
 		return;
 	}
 
-	if(isVideListe_Calque(liste)){	
+	if(isVideListe_Calque(liste)){
+		liste->calque=malloc(sizeof(Calque));
 		*(liste->calque)=cloneCalque(*(node->calque));
 		free(node);
 		return;
@@ -132,18 +133,31 @@ Calque * fusionCalques(Liste_Calque liste){
 		return NULL;
 	Calque * fusion = malloc(sizeof(Calque));
 	*fusion=cloneCalque(*liste->calque);
+	for(int i=0;i<fusion->width*fusion->height*3;i++){
+		fusion->rvb[i]=0;
+	}
 	Liste_Calque tmp = liste;
-	if(tmp->next != NULL){
+	if(tmp->calque->fusion == 0){
+		for(int i=0;i<fusion->width*fusion->height*3;i++){
+			fusion->rvb[i]=MIN(255,fusion->rvb[i]+tmp->calque->opacity*tmp->calque->rvb[i]);
+		}
+	}else{
+		for(int i=0;i<fusion->width*fusion->height*3;i++){
+			fusion->rvb[i]=MIN(255,tmp->calque->opacity*tmp->calque->rvb[i]+(1-tmp->calque->opacity)*fusion->rvb[i]);
+		}
+	}
+	while(tmp->next != NULL){
 		tmp=tmp->next;
 		if(tmp->calque->fusion == 0){
 			for(int i=0;i<fusion->width*fusion->height*3;i++){
-				fusion->rvb[i]+=tmp->calque->fusion*tmp->calque->rvb[i];
+				fusion->rvb[i]=MIN(255,fusion->rvb[i]+tmp->calque->opacity*tmp->calque->rvb[i]);
 			}
 		}else{
 			for(int i=0;i<fusion->width*fusion->height*3;i++){
-				fusion->rvb[i]=tmp->calque->opacity*tmp->calque->rvb[i]+(1-tmp->calque->opacity)*fusion->rvb[i];
+				fusion->rvb[i]=MIN(255,tmp->calque->opacity*tmp->calque->rvb[i]+(1-tmp->calque->opacity)*fusion->rvb[i]);
 			}
 		}
+		
 	}
 	return fusion;
 }
@@ -151,15 +165,23 @@ Calque * fusionCalques(Liste_Calque liste){
 Calque cloneCalque(Calque c){
 	Calque clone ;
 	clone.width=c.width;
+	printf("TEST");
 	clone.height=c.height;
+	printf("TEST2");
 	clone.fusion=c.fusion;
 	clone.opacity=c.opacity;
+	printf("TEST3");
 	clone.rvb=malloc(sizeof(Uint8)*clone.width*clone.height*3);
+	printf("TEST4");
 	for(int i=0;i<clone.width*clone.height*3;i++){
 		clone.rvb[i]=c.rvb[i];
 	}
+	printf("TEST5");
 	return clone;
 }
+
+
+
 
 void addLUTCalque(Liste_Calque liste, int choix, float param){
 	if(NULL == liste || isVideListe_Calque(liste)){
