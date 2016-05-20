@@ -32,7 +32,7 @@ typedef struct Calque {
 typedef struct Node_Calque{
 	struct Node_Calque * next;
 	struct Node_Calque * previous;
-	Calque calque;
+	Calque * calque;
 }Node_Calque;
 
 typedef Node_Calque* Liste_Calque;
@@ -51,11 +51,13 @@ int isVideListe_Calque(Liste_Calque liste);
 
 void addNodeCalque(Liste_Calque liste, Node_Calque* node);
 
+void addNewCalque(Liste_Calque liste);
+
 void deleteLastNodeCalque(Liste_Calque liste);
 
 void freeListe_Calque(Liste_Calque liste);
 
-Calque *fusionCalques(Calque c1, Calque c2);
+Calque *fusionCalques(Liste_Calque liste);
 
 Calque cloneCalque(Calque c);
 

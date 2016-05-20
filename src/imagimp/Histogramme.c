@@ -38,13 +38,13 @@ Calque HistoToImage(Histogramme h){
 	// printf("%d",h.val[255]);
 	
 	Calque res;
-	res.width=MIN(600, max+1);
-	res.height=255;
+	res.width=600;
+	res.height=400;
 	res.fusion=0;
 	res.opacity=1.;
 	
 	res.rvb=malloc(sizeof(Uint8)*res.width*res.height*3);
-	for(int i=0;i<res.width*res.height;i++){
+	/*for(int i=0;i<res.width*res.height;i++){
 		// printf("%d,",i/(res.width));
 		if(h.r[i/(res.width)]>i%(res.width)){
 			res.rvb[i*3]=0;
@@ -61,20 +61,32 @@ Calque HistoToImage(Histogramme h){
 		}else{
 			res.rvb[i*3+2]=255;
 		}
+	}*/
+	printf("%f\n%f",max*400./max,400.*max/400.);
+	for(int i=0;i<res.width*res.height;i++){
+		if(i/res.width<390){
+			if((400 - i/res.width)<h.r[(int)((i%res.width)/600.*255.)]/10.){
+				res.rvb[i*3]=0;
+			}else{
+				res.rvb[i*3]=255;
+			}
+			if((400 - i/res.width)<h.v[(int)((i%res.width)/600.*255.)]/10.){
+				res.rvb[i*3+1]=0;
+			}else{
+				res.rvb[i*3+1]=255;
+			}
+			if((400 -i/res.width)<h.b[(int)((i%res.width)/600.*255.)]/10.){
+				res.rvb[i*3+2]=0;
+			}else{
+				res.rvb[i*3+2]=255;
+			}
+		}else{
+			res.rvb[i*3]=(i%res.width)/600.*255.;
+			res.rvb[i*3+1]=(i%res.width)/600.*255.;
+			res.rvb[i*3+2]=(i%res.width)/600.*255.;
+		}
+		
 	}
-	// for(int j=0;j<res.height;j++){
-		// for(int i=0;i<res.width*3;i+=3){
-			// if(h.val[j]>=i){
-				// res.rvb[(j*res.width*3+i)]=0;
-				// res.rvb[(j*res.width*3+i)+1]=0;
-				// res.rvb[(j*res.width*3+i)+2]=0;
-			// }else{
-				// res.rvb[(j*res.width*3+i)]=255;
-				// res.rvb[(j*res.width*3+i)+1]=255;
-				// res.rvb[(j*res.width*3+i)+2]=255;
-			// }
-		// }
-	// }
 	
 	return res;
 }

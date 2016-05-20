@@ -32,11 +32,13 @@ int main(int argc, char** argv) {
 
 	ADDLUM(&lut, 128);
 
-	// addNodeLUT(liste, lut);
+	addNodeLUT(liste, lut);
 
-	// addNodeLUT(liste, lut);
+	addNodeLUT(liste, lut);
 
-	// lut = fusionListeLUT(liste);
+	lut = fusionListeLUT(liste);
+	
+	freeListe_LUT(liste);
 
 	// deleteLastNodeLUT(liste);
 
@@ -44,8 +46,8 @@ int main(int argc, char** argv) {
 
 	// test = appliquerLUT(&lut,test);
 
-	// Histogramme * histo = createHisto(test.rvb,test.width, test.height);
-	// test=HistoToImage(*histo);
+	Histogramme * histo = createHisto(test.rvb,test.width, test.height);
+	test=HistoToImage(*histo);
 
 
 
@@ -53,7 +55,7 @@ int main(int argc, char** argv) {
 
 
 
-	// Calque calque = creerCalque(800,600);
+	// Calque calque = creerCalque(600,400);
 
 	// Liste_Calque listeCalque = initListe_Calque();
 
@@ -62,7 +64,7 @@ int main(int argc, char** argv) {
 	
 
 	
-	initGLIMAGIMP_IHM(test.width,test.height,test.rvb,650,400,0);
+	initGLIMAGIMP_IHM(test.width,test.height,test.rvb,800,400,0);
 	setFullsreen(0);
 	launchApp();
 	

@@ -54,6 +54,8 @@ void DIMCON(LUT * lut, float contraste);
 
 Calque appliquerLUT(LUT * lut , Calque calque);
 
+void freeListe_LUT(Liste_LUT liste);
+
 LUT fusionLUT(LUT * a, LUT * b);
 
 LUT fusionListeLUT(Liste_LUT liste);

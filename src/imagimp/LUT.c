@@ -168,6 +168,23 @@ Calque appliquerLUT(LUT * lut , Calque calque){
 	return calqueLut;
 }
 
+void freeListe_LUT(Liste_LUT liste){
+	if(liste == NULL)
+		return;
+	if(isVideListe_LUT(liste) || liste->next == liste){
+		free(liste);
+		return;
+	}
+	Liste_LUT tmp=liste->previous->previous;
+	while(tmp != liste){
+		free(tmp->next);
+		tmp=tmp->next;
+		
+	}
+	free(tmp->next);
+	free(liste);
+}
+
 LUT fusionLUT(LUT * a, LUT * b){
 
 	LUT fusion ;
@@ -198,7 +215,6 @@ LUT fusionListeLUT(Liste_LUT liste){
 		tmp = tmp->next;
 
 		while(tmp != liste){
-			printf("PROUT\n");
 			res = fusionLUT(&tmp->lut , &res);
 			tmp = tmp->next;
 
