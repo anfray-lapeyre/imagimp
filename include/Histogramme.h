@@ -22,6 +22,7 @@ typedef struct Histogramme{
 	int r[max_Value];
 	int v[max_Value];
 	int b[max_Value];
+	int n[max_Value];
 }Histogramme;
 
 //Permet de générer l'histogramme rvb par rapport à une image
