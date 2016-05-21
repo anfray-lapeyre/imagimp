@@ -24,9 +24,6 @@ int main(int argc, char** argv) {
 
 	// test=appliquerLUT(&lut,test);
 
-
-	// printf("prout\n");
-
 	// LUT lut = creerLUT();
 
 	// Liste_LUT liste = initListe_LUT();
@@ -50,11 +47,24 @@ int main(int argc, char** argv) {
 	
 
 
+<<<<<<< Updated upstream
 	// Liste_Calque listeCalque = initListe_Calque();
 	// if(isVideListe_Calque(listeCalque)){
 		// printf("prout\n");
 	// }
 
+=======
+<<<<<<< HEAD
+	Liste_Calque listeCalque = initListe_Calque();
+
+=======
+	// Liste_Calque listeCalque = initListe_Calque();
+	// if(isVideListe_Calque(listeCalque)){
+		// printf("prout\n");
+	// }
+>>>>>>> origin/master
+
+>>>>>>> Stashed changes
 	// Calque *calque =malloc(sizeof(Calque));
 	// *calque= creerCalque(600,400);
 	// calque->rvb=malloc(sizeof(Uint8)*calque->width*calque->height*3);
@@ -65,16 +75,24 @@ int main(int argc, char** argv) {
 			// calque->rvb[i]=255;
 	// }
 	
+<<<<<<< HEAD
+	Node_Calque * node = malloc(sizeof(Node_Calque));
+=======
 
 	// if(calque.width == 600 && calque.height == 400 && calque.fusion == 1 && calque.opacity ==1 && calque.rvb == NULL){
 		// printf("prout\n");
 	// }
 
 	// Node_Calque * node = malloc(sizeof(Node_Calque));
+<<<<<<< Updated upstream
+=======
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 
 	// node->calque = calque;
 
 
+<<<<<<< Updated upstream
 	// addNodeCalque(listeCalque, node);
 
 	// printf("prout4\n");
@@ -91,6 +109,54 @@ int main(int argc, char** argv) {
 	
 
 
+=======
+<<<<<<< HEAD
+	addNodeCalque(listeCalque, node);
+	
+	addNewCalque(listeCalque);
+
+	addNewCalque(listeCalque);
+	for(int i=0;i<listeCalque->next->next->calque->width*listeCalque->next->next->calque->height*3;i++){
+		if(i%3==1)
+			listeCalque->next->next->calque->rvb[i]=0;
+		else
+			listeCalque->next->next->calque->rvb[i]=255;
+	}
+
+	if(listeCalque->next != NULL){
+		printf("test2\n");
+	}
+
+	addLUTCalque(listeCalque, 1, 100.);
+
+	// deleteLastNodeCalque(listeCalque);
+	// if(listeCalque->next == NULL){
+	// 	printf("test3\n");
+	// }
+
+	// freeListe_Calque(listeCalque);
+	// if(listeCalque == NULL){
+	// 	printf("lalalala\n");
+	// }
+
+=======
+	// addNodeCalque(listeCalque, node);
+
+	// printf("prout4\n");
+
+	// if(!isVideListe_Calque(listeCalque)){
+		// printf("prout2\n");
+	// }
+	
+	
+	// addNewCalque(listeCalque);
+	// if(!isVideListe_Calque(listeCalque) && listeCalque->next != NULL && listeCalque->next->next == NULL){
+		// printf("caca\n");
+	// }
+	
+
+
+>>>>>>> Stashed changes
 	// addNewCalque(listeCalque);
 	// for(int i=0;i<listeCalque->next->next->calque->width*listeCalque->next->next->calque->height*3;i++){
 		// if(i%3==1)
@@ -98,6 +164,10 @@ int main(int argc, char** argv) {
 		// else
 			// listeCalque->next->next->calque->rvb[i]=255;
 	// }
+<<<<<<< Updated upstream
+=======
+>>>>>>> origin/master
+>>>>>>> Stashed changes
 	// changerOpacite(listeCalque->calque, .2);
 	// changerOpacite(listeCalque->next->calque, 0.5);
 	// changerOpacite(listeCalque->next->next->calque, 0.2);
@@ -107,9 +177,18 @@ int main(int argc, char** argv) {
 	// Calque * calque2 = fusionCalques(listeCalque);
 	
 
+<<<<<<< Updated upstream
+=======
+<<<<<<< HEAD
+	// initGLIMAGIMP_IHM(calque2->width,calque2->height,calque2->rvb,800,400,0);
+	// setFullsreen(0);
+	// launchApp();
+=======
+>>>>>>> Stashed changes
 	initGLIMAGIMP_IHM(test.width,test.height,test.rvb,800,400,0);
 	setFullsreen(0);
 	launchApp();
+>>>>>>> origin/master
 	
 	
 	return 0;

@@ -41,6 +41,7 @@ void addNodeLUT(Liste_LUT liste, LUT lut){
 	}
 
 	if(isVideListe_LUT(liste)){
+
 		liste->next = liste;
 		liste->previous = liste;
 

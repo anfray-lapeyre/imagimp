@@ -6,6 +6,7 @@
 *							IMAC1
 */
 #include "../../include/Calque.h"
+#include "../../include/LUT.h"
 
 Calque creerCalque(int width, int height){
 	Calque res;
@@ -103,14 +104,12 @@ void deleteLastNodeCalque(Liste_Calque liste){
 
 		return;
 	}
-
 	Node_Calque * tmp=liste;
 	while(tmp->next != NULL){
 		tmp=tmp->next;
 	}
 	free(tmp->next);
 	tmp->next=NULL;
-	
 }
 
 void freeListe_Calque(Liste_Calque liste){
@@ -165,30 +164,22 @@ Calque * fusionCalques(Liste_Calque liste){
 Calque cloneCalque(Calque c){
 	Calque clone ;
 	clone.width=c.width;
-	printf("TEST");
 	clone.height=c.height;
-	printf("TEST2");
 	clone.fusion=c.fusion;
 	clone.opacity=c.opacity;
-	printf("TEST3");
 	clone.rvb=malloc(sizeof(Uint8)*clone.width*clone.height*3);
-	printf("TEST4");
 	for(int i=0;i<clone.width*clone.height*3;i++){
 		clone.rvb[i]=c.rvb[i];
 	}
-	printf("TEST5");
 	return clone;
 }
-
-
-
 
 void addLUTCalque(Liste_Calque liste, int choix, float param){
 	if(NULL == liste || isVideListe_Calque(liste)){
 		return;
 	}
 	LUT lut=creerLUT();
-	
+
 	switch(choix){
 		case 0 : 
 		break;
