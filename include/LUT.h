@@ -60,4 +60,8 @@ LUT fusionLUT(LUT * a, LUT * b);
 
 LUT fusionListeLUT(Liste_LUT liste);
 
+LUT cloneLUT(LUT lut);
+
+Liste_LUT cloneListeLUTS(Liste_LUT luts);
+
 #endif

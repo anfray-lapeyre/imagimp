@@ -15,6 +15,7 @@ Calque creerCalque(int width, int height){
 	res.fusion=0;
 	res.opacity=1.;
 	res.rvb = NULL;
+	res.luts=initListe_LUT();
 	return res;
 	
 }
@@ -93,21 +94,25 @@ void addNewCalque(Liste_Calque liste){
 }
 
 void deleteLastNodeCalque(Liste_Calque liste){
-
 	if(NULL == liste || isVideListe_Calque(liste)){
 		return;
 	}
-
 	if(liste->next == NULL ){
-		liste->previous = NULL;
+		freeListe_LUT(liste->calque->luts);
+		free(liste->calque->luts);
 		free(liste->calque);
 
+		liste->calque=NULL;
 		return;
 	}
 	Node_Calque * tmp=liste;
 	while(tmp->next != NULL){
 		tmp=tmp->next;
 	}
+	freeListe_LUT(tmp->calque->luts);
+	free(tmp->calque->luts);
+	free(tmp->calque);
+	tmp=tmp->previous;
 	free(tmp->next);
 	tmp->next=NULL;
 }
@@ -115,16 +120,12 @@ void deleteLastNodeCalque(Liste_Calque liste){
 void freeListe_Calque(Liste_Calque liste){
 	if(liste == NULL)
 		return;
-	if(liste->next == NULL){
-		free(liste);
-		return;
+	while(!isVideListe_Calque(liste)){
+		deleteLastNodeCalque(liste);
 	}
-	Liste_Calque tmp=liste->next;
-	while(tmp->next != NULL){
-		free(tmp->previous);
-		tmp=tmp->next;
-		
-	}
+	printf("Presque,");
+	free(liste);
+	printf("Fini,");
 }
 
 Calque * fusionCalques(Liste_Calque liste){
@@ -171,6 +172,7 @@ Calque cloneCalque(Calque c){
 	for(int i=0;i<clone.width*clone.height*3;i++){
 		clone.rvb[i]=c.rvb[i];
 	}
+	clone.luts=cloneListeLUTS(c.luts);
 	return clone;
 }
 

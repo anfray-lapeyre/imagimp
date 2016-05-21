@@ -172,18 +172,9 @@ Calque appliquerLUT(LUT * lut , Calque calque){
 void freeListe_LUT(Liste_LUT liste){
 	if(liste == NULL)
 		return;
-	if(isVideListe_LUT(liste) || liste->next == liste){
-		free(liste);
-		return;
+	while(!isVideListe_LUT(liste)){
+		deleteLastNodeLUT(liste);
 	}
-	Liste_LUT tmp=liste->previous->previous;
-	while(tmp != liste){
-		free(tmp->next);
-		tmp=tmp->next;
-		
-	}
-	free(tmp->next);
-	free(liste);
 }
 
 LUT fusionLUT(LUT * a, LUT * b){
@@ -224,3 +215,31 @@ LUT fusionListeLUT(Liste_LUT liste){
 	return res;
 }
 
+
+LUT cloneLUT(LUT lut){
+	LUT res;
+	for(int i=0;i<max_Value;i++){
+		res.val[i]=lut.val[i];
+	}
+	return res;
+}
+
+
+Liste_LUT cloneListeLUTS(Liste_LUT luts){
+	if(luts == NULL)
+		return NULL;
+
+	Liste_LUT res= initListe_LUT();
+	if(isVideListe_LUT(luts))
+		return res;
+	Liste_LUT tmp = luts;
+	
+	res->lut=cloneLUT(luts->lut);
+	while(tmp->next != NULL){
+		addNodeLUT(res,tmp->lut);
+		tmp=tmp->next;
+		
+	}
+	
+	return res;
+}
