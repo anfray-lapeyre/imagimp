@@ -93,9 +93,9 @@ void deleteLastNodeLUT(Liste_LUT liste){
 	}
 
 	Node_LUT * tmp;
-
-	liste->previous->previous->next = liste;
 	tmp = liste->previous->previous;
+	tmp->next = liste;
+
 	free(liste->previous);
 	liste->previous = tmp;
 }
@@ -129,7 +129,7 @@ void INVERT(LUT * lut){
 	}
 
 	for(int i = 0 ; i < max_Value ; i++){
-		lut->val[i] = MAX(0, MIN(255, lut->val[255-i]));
+		lut->val[i] = lut->val[max_Value-i];
 	}
 }
 

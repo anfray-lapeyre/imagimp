@@ -20,6 +20,8 @@ typedef struct Node_Calque Node_Calque;
 typedef struct Node_Calque * Liste_Calque;
 struct {
 	ButtonsList *buttons;
+	Slider * sliderOpacity;
+	Liste_Calque base;
 	Liste_Calque calques;
 	int activeLayerShowed;
 	int sepia;
@@ -45,6 +47,8 @@ void Invert();
 void Sepia();
 void addCalque();
 void printHisto();
+void suppLastLUT();
+void suppLastCalque();
 
 void refreshImage();
 #endif

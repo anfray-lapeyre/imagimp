@@ -251,7 +251,8 @@ void appliquerListeLUTCalque(Calque * c){
 }
 
 void retirerLUTCalque(Liste_Calque liste){
-	deleteLastNodeLUT(liste->calque->luts);
+	if(liste != NULL)
+		deleteLastNodeLUT(liste->calque->luts);
 }
 
 Liste_Calque nextCalque(Liste_Calque liste){

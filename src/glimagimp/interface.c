@@ -631,6 +631,14 @@ void makeCursorBounds(Slider* s){
                                 0.016 * s->bounds.width,h*0.5);
 }
 
+void makeCursorBoundsSlider(Slider* s){
+    float height = (float)glutBitmapWidth(GLUT_BITMAP_8_BY_13,'_') * 8./(13.*(float)screen.height);
+    float h = (s->bounds.y2-height) - s->bounds.y;
+    s->cursorBounds = makeBounds(s->bounds.x+0.015 +(s->value) * s->bounds.width*0.8,s->bounds.y+h*0.3,
+                                0.05 * s->bounds.width,h*0.5);
+}
+
+
 Slider makeSlider(Bounds bounds, Color fore, Color back,
                   void (*setHandle)(float)){
     Slider s;
@@ -642,8 +650,8 @@ Slider makeSlider(Bounds bounds, Color fore, Color back,
     s.hover = 0;
     s.inactiv =0;
     s.invisible=0;
-    s.value = 0.5f;
-    makeCursorBounds(&s);
+    s.value = 1.f;
+    makeCursorBoundsSlider(&s);
     return s;
 }
 
@@ -651,8 +659,8 @@ void privateDrawSlider(const Slider* s,const Color* foreCursor,const Color* back
     float height = (float)glutBitmapWidth(GLUT_BITMAP_8_BY_13,'_') * 8./(13.*(float)screen.height);
     glColor4f(fore->r,fore->g,fore->b,fore->a);
     float h2 = (s->bounds.y2-height) - s->bounds.y;
-    drawLigne(s->bounds.x*1.1,s->bounds.y + h2/2. + height/2.,
-              s->bounds.x*1.1+s->bounds.width*0.8,s->bounds.y + h2/2. + height/2.);
+    drawLigne(s->bounds.x+0.02,s->bounds.y + h2/2. + height/2.,
+              s->bounds.x+s->bounds.width*0.9,s->bounds.y + h2/2. + height/2.);
     writeString(s->bounds.x,s->bounds.y + h2/2,"0");
     writeString(s->bounds.x2,s->bounds.y + h2/2,"100%");
     char* valueStr = malloc(sizeof(char)*6);
@@ -710,15 +718,15 @@ void leaveSlider(Slider *s){
 }
 
 void setSliderValueFromPos(Slider *b, float x){
-    b->value = (x-b->bounds.x*1.1)/(b->bounds.width*0.8);
+    b->value = (x-b->bounds.x-0.02)/(b->bounds.width*0.8);
     b->value = fminf(1,fmaxf(0,b->value));
-    makeCursorBounds(b);
+    makeCursorBoundsSlider(b);
 }
 
 void setSliderValue(Slider *b, float value){
     b->value = value;
     b->value = fminf(1,fmaxf(0,b->value));
-    makeCursorBounds(b);
+    makeCursorBoundsSlider(b);
 }
 
 void setSliderInactiv(Slider *s, int inactiv){

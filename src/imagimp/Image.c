@@ -25,14 +25,12 @@ void initImage(int argc,char ** argv){
 	
    
 	Image.calques = initListe_Calque();
+	Image.base=Image.calques;
 
 	Node_Calque * node = malloc(sizeof(Node_Calque));
 
 	node->calque = clonePtrCalque(test);
 	addNodeCalque(Image.calques, node);
-	addNewCalque(Image.calques);
-	addLUTCalque(Image.calques->next, 2, 200.);
-	changerOpacite(Image.calques->next->calque,0.7);
 	
 	initGLIMAGIMP_IHM(test.width,test.height,test.rvb,Image_Width+Interface_Width,Image_Height,0);
 	fixeFonctionClicSouris(clickMouse);
@@ -46,20 +44,24 @@ void initImage(int argc,char ** argv){
     float btnsizeX = 0.199f;
     float btnsizeY = 0.04f;
 	Button * buttons = malloc(sizeof(Button)*nbButtons);
-	buttons[0]=makeButton("Sauvegarder",makeBounds(startX,0.1f,btnsizeX,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),Save);
-	buttons[1]=makeButton("Quitter",makeBounds(startX,0.05f,btnsizeX,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),Quit);
-	buttons[2]=makeButton("Histogramme",makeBounds(startX,0.15f,btnsizeX,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),printHisto);
-	buttons[3]=makeButton("Sepia",makeBounds(startX+btnsizeX/2+0.001,0.25f,btnsizeX/2,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),Sepia);
-	buttons[4]=makeButton("Col. Inv.",makeBounds(startX-0.001,0.25f,btnsizeX/2,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),Invert);
-	buttons[5]=makeButton("DIMCON",makeBounds(startX+btnsizeX/2+0.001,0.3f,btnsizeX/2,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),Dimcon);
-	buttons[6]=makeButton("ADDCON",makeBounds(startX-0.001,0.3f,btnsizeX/2,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),Addcon);
-	buttons[7]=makeButton("DIMLUM",makeBounds(startX+btnsizeX/2+0.001,0.35f,btnsizeX/2,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),Dimlum);
-	buttons[8]=makeButton("ADDLUM",makeBounds(startX-0.001,0.35f,btnsizeX/2,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),Addlum);
-	buttons[9]=makeButton("Aff. Calque Actif",makeBounds(startX,0.78f,btnsizeX,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),afficherCalqueActif);
-	buttons[10]=makeButton("Aff. Projet entier",makeBounds(startX,0.83f,btnsizeX,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),afficherImageComplete);
-	buttons[11]=makeButton("Nouveau Calque",makeBounds(startX,0.7f,btnsizeX,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),addCalque);
-	buttons[12]=makeButton("C. Suivant",makeBounds(startX,0.9f,btnsizeX,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),Next);
-	buttons[13]=makeButton("C. Préc.",makeBounds(startX,0.95f,btnsizeX,btnsizeY),makeColor(1,1,1,1),makeColor(0,0,0,0),Previous);
+	buttons[0]=makeButton("Sauvegarder",makeBounds(startX,0.1f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Save);
+	buttons[1]=makeButton("Quitter",makeBounds(startX,0.05f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Quit);
+	buttons[2]=makeButton("Histogramme",makeBounds(startX,0.15f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),printHisto);
+	buttons[3]=makeButton("Sepia",makeBounds(startX+btnsizeX/2+0.001,0.25f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Sepia);
+	buttons[4]=makeButton("Col. Inv.",makeBounds(startX-0.001,0.25f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Invert);
+	buttons[5]=makeButton("DIMCON",makeBounds(startX+btnsizeX/2+0.001,0.3f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Dimcon);
+	buttons[6]=makeButton("ADDCON",makeBounds(startX-0.001,0.3f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Addcon);
+	buttons[7]=makeButton("DIMLUM",makeBounds(startX+btnsizeX/2+0.001,0.35f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Dimlum);
+	buttons[8]=makeButton("ADDLUM",makeBounds(startX-0.001,0.35f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Addlum);
+	buttons[9]=makeButton("Aff. Calque Actif",makeBounds(startX,0.78f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),afficherCalqueActif);
+	buttons[10]=makeButton("Aff. Projet entier",makeBounds(startX,0.83f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),afficherImageComplete);
+	buttons[11]=makeButton("Nouveau Calque",makeBounds(startX,0.7f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),addCalque);
+	buttons[12]=makeButton("C. Suivant",makeBounds(startX,0.9f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Next);
+	buttons[13]=makeButton("C. Préc.",makeBounds(startX,0.95f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Previous);
+	buttons[14]=makeButton("Supp. dernier LUT",makeBounds(startX,0.65f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),suppLastLUT);
+	buttons[15]=makeButton("Supp. dernier Calq.",makeBounds(startX,0.60f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),suppLastCalque);
+	Image.sliderOpacity=malloc(sizeof(Slider));
+	*(Image.sliderOpacity) = makeSlider(makeBounds(startX,0.35+0.35/3,0.15,0.35/5),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),NULL);
 	// Histogramme * histo = createHisto(test.rvb,test.width, test.height);
 	// test=HistoToImage(*histo);
 	Image.buttons=makeButtonList(&buttons[0]);
@@ -138,13 +140,26 @@ void clickMouse(int button,int state,float x,float y){
 			while(tmp->next != NULL){
 				if(isInBounds(x,y,&(tmp->button->bounds))){
 					(tmp->button->clickHandle)();
-					printf("%s",tmp->button->label);
+					printf("%s\n",tmp->button->label);
+					releaseButton(tmp->button,0);
 					refreshImage();
 					break;
 				}
 				tmp=tmp->next;
 			}
 			
+		}else{
+			ButtonsList* tmp = Image.buttons;
+			
+			while(tmp->next != NULL){
+				if(isInBounds(x,y,&(tmp->button->bounds))){
+					pressButton(tmp->button);
+					refreshImage();
+					break;
+				}
+				
+				tmp=tmp->next;
+			}
 		}
 	}
 	
@@ -153,6 +168,44 @@ void clickMouse(int button,int state,float x,float y){
 
 void mouseMotion(float x, float y, float deltaX, float deltaY, int pressedButton) {
     //isInBounds
+	ButtonsList* tmp = Image.buttons;
+			
+	while(tmp->next != NULL){
+		if(isInBounds(x+deltaX,y+deltaY,&(tmp->button->bounds))){
+			hoverButton(tmp->button);
+			refreshImage();
+			break;
+		}else{
+			if(tmp->button->hover){
+				leaveButton(tmp->button);
+				refreshImage();
+				break;
+			}
+		}
+		tmp=tmp->next;
+	}
+	unsigned char sliderHover = isInBounds(x,y,&Image.sliderOpacity->cursorBounds);
+    if(sliderHover){
+        if (pressedButton == GLUT_DOWN) {
+             pressSlider(Image.sliderOpacity);
+        }
+        else{
+             releaseSlider(Image.sliderOpacity,1);
+        }
+		refreshImage();
+    }
+    else{
+        if (pressedButton == GLUT_DOWN) {
+             if(isInBounds(x,y,&Image.sliderOpacity->bounds)){
+                  setSliderValueFromPos(Image.sliderOpacity,x);
+				  Image.calques->calque->opacity=Image.sliderOpacity->value;
+             }
+        }else{
+			  releaseSlider(Image.sliderOpacity,1);
+
+		}
+		refreshImage();
+    }
 }
 
 void drawImage(){
@@ -161,6 +214,7 @@ void drawImage(){
 		drawButton(tmp->button);
 		tmp=tmp->next;
 	}
+	drawSlider(Image.sliderOpacity);
 }
 
 void Save(){
@@ -223,6 +277,14 @@ void printHisto(){
 	else
 		Image.printHisto=1;
 }
+void suppLastLUT(){
+	
+	deleteLastNodeLUT(Image.calques->calque->luts);
+}
+void suppLastCalque(){
+	if(Image.base->next != NULL)
+		deleteLastNodeCalque(Image.base);
+}
 
 void refreshImage(){
 	Calque * test2;
@@ -232,7 +294,7 @@ void refreshImage(){
 		appliquerListeLUTCalque(test2);
 		
 	}else{ //Tous les calques
-		test2=fusionCalques(Image.calques);
+		test2=fusionCalques(Image.base);
 	}
 	if(Image.sepia){
 		test2=SEPIA(*test2);
@@ -245,3 +307,4 @@ void refreshImage(){
 	// int sepia;
 	// int printHisto;
 }
+
