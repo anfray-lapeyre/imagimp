@@ -269,6 +269,7 @@ void Sepia(){
 
 void addCalque(){
 	addNewCalque(Image.calques);
+	Image.calques=Image.calques->next;
 }
 
 void printHisto(){
