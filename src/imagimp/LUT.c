@@ -188,9 +188,9 @@ LUT fusionLUT(LUT * a, LUT * b){
 	return fusion;
 }
 
-LUT fusionListeLUT(Liste_LUT liste){
-
-	LUT res = creerLUT();
+LUT * fusionListeLUT(Liste_LUT liste){
+	LUT * res=malloc(sizeof(LUT));
+	*res = creerLUT();
 
 	if(NULL == liste){
 		return res;
@@ -203,11 +203,11 @@ LUT fusionListeLUT(Liste_LUT liste){
 	}
 	else{
 
-		res = fusionLUT(&res , &tmp->lut);
+		*res = fusionLUT(res , &tmp->lut);
 		tmp = tmp->next;
 
 		while(tmp != liste){
-			res = fusionLUT(&tmp->lut , &res);
+			*res = fusionLUT(res,&tmp->lut);
 			tmp = tmp->next;
 
 		}
@@ -228,18 +228,16 @@ LUT cloneLUT(LUT lut){
 Liste_LUT cloneListeLUTS(Liste_LUT luts){
 	if(luts == NULL)
 		return NULL;
-
 	Liste_LUT res= initListe_LUT();
 	if(isVideListe_LUT(luts))
 		return res;
 	Liste_LUT tmp = luts;
 	
 	res->lut=cloneLUT(luts->lut);
-	while(tmp->next != NULL){
+	while(tmp->next != luts){
 		addNodeLUT(res,tmp->lut);
 		tmp=tmp->next;
 		
 	}
-	
 	return res;
 }

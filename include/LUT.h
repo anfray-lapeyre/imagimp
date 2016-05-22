@@ -58,7 +58,7 @@ void freeListe_LUT(Liste_LUT liste);
 
 LUT fusionLUT(LUT * a, LUT * b);
 
-LUT fusionListeLUT(Liste_LUT liste);
+LUT * fusionListeLUT(Liste_LUT liste);
 
 LUT cloneLUT(LUT lut);
 

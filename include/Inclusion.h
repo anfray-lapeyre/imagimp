@@ -25,6 +25,10 @@ Il servira aussi à définir les constantes de notre programme
 //On rajoute ici les définitions de constantes
 
 #define max_Value 256
+#define nbButtons 14
+#define Image_Width 600
+#define Image_Height 400
+#define Interface_Width 200
 
 //Inclusion de tous les fichiers du projet
 #include "interface.h"
@@ -34,6 +38,7 @@ Il servira aussi à définir les constantes de notre programme
 #include "Calque.h"
 #include "Event.h"
 #include "Histogramme.h"
+#include "Image.h"
 
 
 

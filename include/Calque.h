@@ -61,9 +61,16 @@ Calque *fusionCalques(Liste_Calque liste);
 
 Calque cloneCalque(Calque c);
 
+Calque* clonePtrCalque(Calque c);
+
+Calque * SEPIA(Calque c);
 
 void addLUTCalque(Liste_Calque liste, int choix, float param);
 
+void appliquerListeLUTCalque(Calque * c);
 
+Liste_Calque nextCalque(Liste_Calque liste);
+
+Liste_Calque prevCalque(Liste_Calque liste);
 
 #endif

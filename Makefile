@@ -79,6 +79,6 @@ $(LIBGLIMAGIMP): obj/glimagimp/interface.o \
 clean:
 	$(CLEANCMD)
 run:
-	$(RUNCMD)
+	$(RUNCMD) resources/Embryos.512.ppm
 mrproper: clean all
 re: mrproper

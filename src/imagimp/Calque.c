@@ -123,41 +123,46 @@ void freeListe_Calque(Liste_Calque liste){
 	while(!isVideListe_Calque(liste)){
 		deleteLastNodeCalque(liste);
 	}
-	printf("Presque,");
 	free(liste);
-	printf("Fini,");
 }
 
 Calque * fusionCalques(Liste_Calque liste){
 	if(liste == NULL || isVideListe_Calque(liste))
 		return NULL;
-	Calque * fusion = malloc(sizeof(Calque));
-	*fusion=cloneCalque(*liste->calque);
+	Calque * fusion;
+	fusion = clonePtrCalque(*(liste->calque));
 	for(int i=0;i<fusion->width*fusion->height*3;i++){
 		fusion->rvb[i]=0;
 	}
 	Liste_Calque tmp = liste;
+	appliquerListeLUTCalque(liste->calque);
 	if(tmp->calque->fusion == 0){
 		for(int i=0;i<fusion->width*fusion->height*3;i++){
-			fusion->rvb[i]=MIN(255,fusion->rvb[i]+tmp->calque->opacity*tmp->calque->rvb[i]);
+			fusion->rvb[i]=MIN(255,tmp->calque->opacity*tmp->calque->rvb[i]+(1-tmp->calque->opacity)*fusion->rvb[i]);
+
 		}
 	}else{
 		for(int i=0;i<fusion->width*fusion->height*3;i++){
-			fusion->rvb[i]=MIN(255,tmp->calque->opacity*tmp->calque->rvb[i]+(1-tmp->calque->opacity)*fusion->rvb[i]);
+			fusion->rvb[i]=MIN(255,fusion->rvb[i]+tmp->calque->opacity*tmp->calque->rvb[i]);
+
 		}
 	}
+
 	while(tmp->next != NULL){
+	
 		tmp=tmp->next;
+		appliquerListeLUTCalque(tmp->calque);
 		if(tmp->calque->fusion == 0){
 			for(int i=0;i<fusion->width*fusion->height*3;i++){
-				fusion->rvb[i]=MIN(255,fusion->rvb[i]+tmp->calque->opacity*tmp->calque->rvb[i]);
+				fusion->rvb[i]=MIN(255,tmp->calque->opacity*tmp->calque->rvb[i]+(1-tmp->calque->opacity)*fusion->rvb[i]);
+
 			}
 		}else{
 			for(int i=0;i<fusion->width*fusion->height*3;i++){
-				fusion->rvb[i]=MIN(255,tmp->calque->opacity*tmp->calque->rvb[i]+(1-tmp->calque->opacity)*fusion->rvb[i]);
+				fusion->rvb[i]=MIN(255,fusion->rvb[i]+tmp->calque->opacity*tmp->calque->rvb[i]);
+
 			}
 		}
-		
 	}
 	return fusion;
 }
@@ -174,6 +179,32 @@ Calque cloneCalque(Calque c){
 	}
 	clone.luts=cloneListeLUTS(c.luts);
 	return clone;
+}
+
+Calque* clonePtrCalque(Calque c){
+	Calque* clone =malloc(sizeof(Calque));
+	clone->width=c.width;
+	clone->height=c.height;
+	clone->fusion=c.fusion;
+	clone->opacity=c.opacity;
+	clone->rvb=malloc(sizeof(Uint8)*clone->width*clone->height*3);
+	for(int i=0;i<clone->width*clone->height*3;i++){
+		clone->rvb[i]=c.rvb[i];
+	}
+	clone->luts=cloneListeLUTS(c.luts);
+	return clone;
+	
+}
+
+Calque * SEPIA(Calque c){
+	Calque * res=clonePtrCalque(c);
+	for(int i=0;i<res->width*res->height-1;i++)
+	{
+		res->rvb[i*3]=(res->rvb[i*3]+res->rvb[i*3+1]+res->rvb[i*3+2])/3;
+		res->rvb[i*3+1]=(res->rvb[i*3]+res->rvb[i*3+1]+res->rvb[i*3+2])/3;
+		res->rvb[i*3+2]=(res->rvb[i*3]+res->rvb[i*3+1]+res->rvb[i*3+2])/3;
+	}
+	return res;
 }
 
 void addLUTCalque(Liste_Calque liste, int choix, float param){
@@ -208,6 +239,31 @@ void addLUTCalque(Liste_Calque liste, int choix, float param){
 	addNodeLUT(liste->calque->luts,lut);
 }
 
+void appliquerListeLUTCalque(Calque * c){
+	if(NULL == c || NULL == c->luts || isVideListe_LUT(c->luts))
+		return;
+	LUT * fusion = fusionListeLUT(c->luts);
+	Calque tmp= appliquerLUT(fusion,*c);
+	for(int i=0;i<tmp.width*tmp.height*3;i++){
+		c->rvb[i]=tmp.rvb[i];
+	}
+	
+}
+
 void retirerLUTCalque(Liste_Calque liste){
 	deleteLastNodeLUT(liste->calque->luts);
+}
+
+Liste_Calque nextCalque(Liste_Calque liste){
+	if(NULL == liste || NULL == liste->next){
+		return liste;
+	}
+	return liste->next;
+}
+
+Liste_Calque prevCalque(Liste_Calque liste){
+	if(NULL == liste || NULL == liste->previous){
+		return liste;
+	}
+	return liste->previous;
 }
