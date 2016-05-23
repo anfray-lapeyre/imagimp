@@ -16,7 +16,7 @@ void initImage(int argc,char ** argv){
 		}
 		else{
 			printf("\nThis file does not exists, please try again with an existing file.\n");
-			return 1;
+			return;
 		}
 	}
 	else{
