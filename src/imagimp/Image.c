@@ -138,10 +138,9 @@ void clickMouse(int button,int state,float x,float y){
 			ButtonsList* tmp = Image.buttons;
 			
 			while(tmp->next != NULL){
-				if(isInBounds(x,y,&(tmp->button->bounds))){
-					(tmp->button->clickHandle)();
+				if(isInBounds(x,y,&(tmp->button->bounds)) && tmp->button->press ==1){
 					printf("%s\n",tmp->button->label);
-					releaseButton(tmp->button,0);
+					releaseButton(tmp->button,1);
 					refreshImage();
 					break;
 				}
@@ -152,7 +151,7 @@ void clickMouse(int button,int state,float x,float y){
 			ButtonsList* tmp = Image.buttons;
 			
 			while(tmp->next != NULL){
-				if(isInBounds(x,y,&(tmp->button->bounds))){
+				if(isInBounds(x,y,&(tmp->button->bounds)) && tmp->button->press ==0){
 					pressButton(tmp->button);
 					refreshImage();
 					break;

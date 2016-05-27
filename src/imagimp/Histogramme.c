@@ -51,8 +51,6 @@ Calque HistoToImage(Histogramme h){
 	res.opacity=1.;
 	
 	res.rvb=malloc(sizeof(Uint8)*res.width*res.height*3);
-	
-	printf("%d\n",max);
 	for(int i=0;i<res.width*res.height-1;i++){
 		// if(h.r[(int)((i%res.width)/600.*255.)]>262144)
 			// printf("%d\n",h.r[(int)((i%res.width)/600.*255.)]);
