@@ -28,7 +28,15 @@ typedef struct Histogramme{
 //Permet de générer l'histogramme rvb par rapport à une image
 Histogramme* createHisto(Uint8 * rvb,int width, int height);
 
-Calque HistoToImage(Histogramme h);
+/*
+*Transforme l'histogramme en un calque pour l'afficher en montrant les pics rvb
+*/
+Calque HistoToImageRVB(Histogramme h);
+
+/*
+*Transforme l'histogramme en un calque pour l'afficher en montrant les pics cmjn
+*/
+Calque HistoToImageCMJ(Histogramme h);
 
 
 

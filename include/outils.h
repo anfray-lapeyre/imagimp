@@ -40,28 +40,13 @@
 #include <GL/glut.h>
 #endif
 
-
-typedef struct {
-    float r,g,b,a;
-} Color;
-
-Color makeColor(float r, float g, float b, float a);
-Color makeInversedColor(Color c);
-
-typedef struct {
-    float x,y,width,height;
-    float x2,y2;
-} Bounds;
-
-Bounds makeBounds(float x, float y, float width, float height);
-int isInBounds(float x, float y, const Bounds* b);
+#include "Inclusion.h"
 
 /// ///////////////////////////////////////////////////////////////////////////
 /// Prototypes des fonctions utilitaires
 /// ///////////////////////////////////////////////////////////////////////////
 // Ecrit une chaine de caractère (s) en position x,y
 void writeString(float x, float y, char* s);
-void writeChar(float x, float y,  char c);
 // Fixe la couleur d'écriture
 // r,v,b sont des flotants compris entre 0 et 1
 void fixeCouleur(float r,float v,float b);

@@ -7,6 +7,13 @@
 */
 #include "../../include/Image.h"
 #include <unistd.h>
+
+
+
+
+
+
+
 void initImage(int argc,char ** argv){
 	Calque test=creerCalque(0,0);
 	if(argc>1){
@@ -31,35 +38,33 @@ void initImage(int argc,char ** argv){
 
 	node->calque = clonePtrCalque(test);
 	addNodeCalque(Image.calques, node);
-	
 	initGLIMAGIMP_IHM(test.width,test.height,test.rvb,Image_Width+Interface_Width,Image_Height,0);
 	fixeFonctionClicSouris(clickMouse);
 	fixeFonctionClavier(kbdFunc);
-	fixeFonctionClavierSpecial(kbdSpFunc);
 	fixeFonctionMotionSouris(mouseMotion);
 	fixeFonctionDessin(drawImage);
 	
 	
-	 float startX = getUIStartX() + 0.01;
+	 float startX = 0.79;
     float btnsizeX = 0.199f;
     float btnsizeY = 0.04f;
 	Button * buttons = malloc(sizeof(Button)*nbButtons);
-	buttons[0]=makeButton("Sauvegarder",makeBounds(startX,0.1f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Save);
-	buttons[1]=makeButton("Quitter",makeBounds(startX,0.05f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Quit);
-	buttons[2]=makeButton("Histogramme",makeBounds(startX,0.15f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),printHisto);
-	buttons[3]=makeButton("Sepia",makeBounds(startX+btnsizeX/2+0.001,0.25f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Sepia);
-	buttons[4]=makeButton("Col. Inv.",makeBounds(startX-0.001,0.25f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Invert);
-	buttons[5]=makeButton("DIMCON",makeBounds(startX+btnsizeX/2+0.001,0.3f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Dimcon);
-	buttons[6]=makeButton("ADDCON",makeBounds(startX-0.001,0.3f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Addcon);
-	buttons[7]=makeButton("DIMLUM",makeBounds(startX+btnsizeX/2+0.001,0.35f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Dimlum);
-	buttons[8]=makeButton("ADDLUM",makeBounds(startX-0.001,0.35f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Addlum);
-	buttons[9]=makeButton("Aff. Calque Actif",makeBounds(startX,0.78f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),afficherCalqueActif);
-	buttons[10]=makeButton("Aff. Projet entier",makeBounds(startX,0.83f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),afficherImageComplete);
-	buttons[11]=makeButton("Nouveau Calque",makeBounds(startX,0.7f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),addCalque);
-	buttons[12]=makeButton("C. Suivant",makeBounds(startX,0.9f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Next);
-	buttons[13]=makeButton("C. Préc.",makeBounds(startX,0.95f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Previous);
-	buttons[14]=makeButton("Supp. dernier LUT",makeBounds(startX,0.65f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),suppLastLUT);
-	buttons[15]=makeButton("Supp. dernier Calq.",makeBounds(startX,0.60f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),suppLastCalque);
+	buttons[0]=makeButton("Sauvegarder",makeBounds(startX,0.1f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Save,0);
+	buttons[1]=makeButton("Quitter",makeBounds(startX,0.05f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Quit,0);
+	buttons[2]=makeButton("Histogramme",makeBounds(startX,0.15f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),printHisto,0);
+	buttons[3]=makeButton("Sepia",makeBounds(startX+btnsizeX/2+0.001,0.25f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Sepia,13);
+	buttons[4]=makeButton("Col. Inv.",makeBounds(startX-0.001,0.25f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Invert,0);
+	buttons[5]=makeButton("DIMCON",makeBounds(startX+btnsizeX/2+0.001,0.3f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Dimcon,13);
+	buttons[6]=makeButton("ADDCON",makeBounds(startX-0.001,0.3f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Addcon,0);
+	buttons[7]=makeButton("DIMLUM",makeBounds(startX+btnsizeX/2+0.001,0.35f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Dimlum,13);
+	buttons[8]=makeButton("ADDLUM",makeBounds(startX-0.001,0.35f,btnsizeX/2,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Addlum,0);
+	buttons[9]=makeButton("Aff. Calque Actif",makeBounds(startX,0.78f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),afficherCalqueActif,0);
+	buttons[10]=makeButton("Aff. Projet entier",makeBounds(startX,0.83f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),afficherImageComplete,0);
+	buttons[11]=makeButton("Nouveau Calque",makeBounds(startX,0.7f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),addCalque,0);
+	buttons[12]=makeButton("C. Suivant",makeBounds(startX,0.9f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Next,0);
+	buttons[13]=makeButton("C. Préc.",makeBounds(startX,0.95f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),Previous,0);
+	buttons[14]=makeButton("Supp. dernier LUT",makeBounds(startX,0.65f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),suppLastLUT,0);
+	buttons[15]=makeButton("Supp. dernier Calq.",makeBounds(startX,0.60f,btnsizeX,btnsizeY),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),suppLastCalque,0);
 	Image.sliderOpacity=malloc(sizeof(Slider));
 	*(Image.sliderOpacity) = makeSlider(makeBounds(startX,0.35+0.35/3,0.15,0.35/5),makeColor(0.7,0.7,0.7,1),makeColor(0,0,0,0),NULL);
 	// Histogramme * histo = createHisto(test.rvb,test.width, test.height);
@@ -72,8 +77,7 @@ void initImage(int argc,char ** argv){
 	Image.activeLayerShowed=0;
 	Image.sepia=0;
 	Image.printHisto=0;
-	
-	
+		/* Ready to go! */
 	setFullsreen(0);
 	launchApp();
 }
@@ -85,48 +89,161 @@ void initImage(int argc,char ** argv){
 /// - x,y : coordonnée du curseur dans la fenetre
 void kbdFunc(unsigned char c, int x, int y) {
 	char saisie[100] = {'\0'};
-	printf("Touche tapee %c (coord souris %d/%d)\n",c,x,y);
+	float val;
+	Calque * test2;
 	switch(c) {
-		case 't': // Exemple de saisie sur le terminal
+		case 'd': 
 			printf("Debraillement sur le terminal\n");
 			printf("Merci de rentrer une chaine de caractère :");
 			scanf("%s",saisie);
 			printf("On a tape %s\n",saisie);
+			printf("Chargement de l'image\n");
+			Calque test=creerCalque(0,0);
+			if( access( saisie, F_OK ) != -1 ){
+				test.rvb=LoadPPM(saisie,&(test.width),&(test.height));
+			}
+			else{
+				printf("\nThis file does not exists, please try again with an existing file.\n");
+				return;
+			}
+			
+			Node_Calque * node = malloc(sizeof(Node_Calque));
+
+			node->calque = clonePtrCalque(test);
+			addNodeCalque(Image.calques, node);
 			break;
-		case 'i': // Exemple d'utilisation des fonctions de la bibliotheque glimagimp
-			printInfo();
+		case 'f': 
+			printf("Debraillement sur le terminal\n");
+			printf("Merci de rentrer une chaine de caractère :");
+			scanf("%s",saisie);
+			printf("On a tape %s\n",saisie);
+			printf("Chargement de l'image\n");
+			Calque test3=creerCalque(0,0);
+			if( access( saisie, F_OK ) != -1 ){
+				test3.rvb=LoadPPM(saisie,&(test3.width),&(test3.height));
+			}
+			else{
+				printf("\nThis file does not exists, please try again with an existing file.\n");
+				return;
+			}
+			
+		   
+			Image.calques = initListe_Calque();
+			Image.base=Image.calques;
+			Node_Calque * node1 = malloc(sizeof(Node_Calque));
+
+			node1->calque = clonePtrCalque(test3);
+			addNodeCalque(Image.calques, node1);
+		break;
+		case 'g': 
+			if(Image.activeLayerShowed==1)
+				afficherImageComplete();
+			else{
+				afficherCalqueActif();
+			}
+		break;
+		case 's': 
+			printf("Debraillement sur le terminal\n");
+			printf("Merci de rentrer une chaine de caractère :");
+			scanf("%s",saisie);
+			printf("On a tape %s\n",saisie);
+
+			printf("Sauvegarde de l'image\n");
+			if(Image.activeLayerShowed){ //Calque actif affiché
+				test2=clonePtrCalque(*(Image.calques->calque));//fusionCalques(Image.calques);
+				appliquerListeLUTCalque(test2);
+				
+			}else{ //Tous les calques
+				test2=fusionCalques(Image.base);
+			}
+			if(Image.sepia){
+				test2=SEPIA(*test2);
+			}
+			if(Image.printHisto==1){
+				Histogramme * histo = createHisto(test2->rvb,test2->width, test2->height);
+				*test2=HistoToImageRVB(*histo);
+			}else if(Image.printHisto==2){
+				Histogramme * histo = createHisto(test2->rvb,test2->width, test2->height);
+				*test2=HistoToImageCMJ(*histo);
+			}
+			SaveImage(saisie,test2->rvb,Image.calques->calque->width,Image.calques->calque->height);
 			break;
-		case 's': // Exemple d'utilisation des fonctions de la bibliotheque glimagimp
-			// if (!switch_image)
-				// actualiseImage(image_switch);
-			// else
-				// actualiseImage(image_base);
-			// switch_image = 1-switch_image;
+		case 'h': // Touche Histo
+			printf("Histogramme\n");
+			printHisto();
 			break;
-		case 27: // Touche Escape
+		case 'i': 
+			printf("LUT Inversion de couleur\n");
+			Invert();
+			break;
+		case 'n': 
+			printf("Ajout calque vierge\n");
+			addCalque();
+			break;
+		case 'q':
 			printf("Fin du programme\n");
 			exit(0);
+			break;
+		case ':': 
+			printf("Calque precedent\n");
+			Previous();
+			break;
+		case '!': 
+			printf("Calque suivant\n");
+			Next();
+			break;
+		case 'a': 
+			printf("Supprimer dernier LUT\n");
+			suppLastLUT();
+			break;
+		case 'z': 
+			printf("Supprimer dernier calques\n");
+			suppLastCalque();
+			break;
+		case 'e': 
+			printf("Opacite\n");
+			printf("Veuillez saisir une valeur entre 0 et 1\n");
+			scanf("%f",&val);
+			if(val<=1 && val>=0)
+				Image.calques->calque->opacity=val;
+			break;
+		case 'r': 
+			printf("LUT Luminosité\n");
+			printf("Veuillez saisir une valeur entre -100 et 100\n");
+			scanf("%f",&val);
+			if(val>0)
+				addLUTCalque(Image.calques, 1, val);
+			else
+				addLUTCalque(Image.calques, 2, -val);
+			
+			break;
+		case 't': 
+			printf("LUT Contraste\n");
+			printf("Veuillez saisir une valeur entre 0 et 127\n");
+			scanf("%f",&val);
+			if(val>0 && val<=1)
+				addLUTCalque(Image.calques, 4, val);
+			else if(val>1)
+				addLUTCalque(Image.calques, 3, val);
+			break;
+		case 'y': 
+			printf("Sepia\n");
+			Sepia();
+			break;
+		case 'm': 
+			printf("Changement du mode de fusion\n");
+			if(Image.calques->calque->fusion == 1)
+				changerFusion(Image.calques->calque,0);
+			else
+				changerFusion(Image.calques->calque,1);
 			break;
 		default :
 			printf("Touche non fonctionnelle\n");
 	}
+	refreshImage();
 }
 
-/// ///////////////////////////////////////////////////////////////////////////
-/// fonction associée aux interruptions clavier speciales
-/// - c : caractère saisi
-/// - x,y : coordonnée du curseur dans la fenêtre
-void kbdSpFunc(int c, int x, int y)
-{
-	printf("Touche speciale utilisee %d (coord souris %d/%d)\n",c,x,y);
-	switch(c) {
-		case GLUT_KEY_F1 : // quit
-			printf("Touche F1\n");
-			break;
-		default :
-			printf("Touche speciale non fonctionnelle\n");
-	}
-}
+
 
 /// ///////////////////////////////////////////////////////////////////////////
 /// fonction associée aux evenements souris
@@ -219,7 +336,23 @@ void drawImage(){
 void Save(){
 	Calque * test2;
 	printf("Sauvegarde de l'image\n");
-	test2=fusionCalques(Image.calques);
+	if(Image.activeLayerShowed){ //Calque actif affiché
+		test2=clonePtrCalque(*(Image.calques->calque));//fusionCalques(Image.calques);
+		appliquerListeLUTCalque(test2);
+		
+	}else{ //Tous les calques
+		test2=fusionCalques(Image.base);
+	}
+	if(Image.sepia){
+		test2=SEPIA(*test2);
+	}
+	if(Image.printHisto==1){
+		Histogramme * histo = createHisto(test2->rvb,test2->width, test2->height);
+		*test2=HistoToImageRVB(*histo);
+	}else if(Image.printHisto==2){
+		Histogramme * histo = createHisto(test2->rvb,test2->width, test2->height);
+		*test2=HistoToImageCMJ(*histo);
+	}
 	SaveImage("save.ppm",test2->rvb,Image.calques->calque->width,Image.calques->calque->height);
 }
 
@@ -272,10 +405,7 @@ void addCalque(){
 }
 
 void printHisto(){
-	if(Image.printHisto==1)
-		Image.printHisto=0;
-	else
-		Image.printHisto=1;
+	Image.printHisto=(Image.printHisto+1)%3;
 }
 void suppLastLUT(){
 	
@@ -299,9 +429,12 @@ void refreshImage(){
 	if(Image.sepia){
 		test2=SEPIA(*test2);
 	}
-	if(Image.printHisto){
+	if(Image.printHisto==1){
 		Histogramme * histo = createHisto(test2->rvb,test2->width, test2->height);
-		*test2=HistoToImage(*histo);
+		*test2=HistoToImageRVB(*histo);
+	}else if(Image.printHisto==2){
+		Histogramme * histo = createHisto(test2->rvb,test2->width, test2->height);
+		*test2=HistoToImageCMJ(*histo);
 	}
 	actualiseImage(test2->rvb,test2->width,test2->height);
 	// int sepia;

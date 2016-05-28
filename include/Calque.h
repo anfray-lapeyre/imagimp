@@ -41,36 +41,89 @@ typedef Node_Calque* Liste_Calque;
 //Pour toute autre valeur, crée une objet LUT où chaque valeur du tableau vaut 0;
 Calque creerCalque(int width, int height);
 
+/*
+*Modifie l'opacité du calque passé en paramètre, en lui donnant la valeur donnée
+*/
 void changerOpacite(Calque * c, float new_opacity);
 
+/*
+*Change la valeur de fusion pour un calque, en lui donnant la valeur donnée
+*/
 void changerFusion(Calque * c,int fusion);
 
+/*
+*Initialise une liste de calque en rendant tous les pointeurs nuls
+*/
 Liste_Calque initListe_Calque();
 
+/*
+*Retourne 1 si la liste ne contient pas de calque dans le premier élément
+*/
 int isVideListe_Calque(Liste_Calque liste);
 
+/*
+*Rajoute un Node à la liste, en dernière place
+*/
 void addNodeCalque(Liste_Calque liste, Node_Calque* node);
 
+/*
+*Rajoute un Node contenant un calque blanc
+*/
 void addNewCalque(Liste_Calque liste);
 
+/*
+*Detruit le dernier node de la liste
+*/
 void deleteLastNodeCalque(Liste_Calque liste);
 
+/*
+*Nettoie tous les pointeurs d'une liste
+*/
 void freeListe_Calque(Liste_Calque liste);
 
+/*
+*Fusionne tous les calques d'une liste et en retourne le calque fusionné
+*/
 Calque *fusionCalques(Liste_Calque liste);
 
+/*
+*Clone un calque sans lui allouer de mémoire adaptée
+*/
 Calque cloneCalque(Calque c);
 
+/*
+*Clone un calque en lui allouant sa mémoire
+*/
 Calque* clonePtrCalque(Calque c);
 
+/*
+*Effectue un effet sepia (moyenne des couleurs) sur un calque, attention, cette opération n'est pas réversible, on l'effectue donc sur un clone
+*/
 Calque * SEPIA(Calque c);
 
+/*
+*Rajoute un lut dans le tableau de luts d'un calque
+1 : ADDLUM
+2 : DIMLUM
+3 : ADDCON
+4 : DIMCON
+5 : INVERT
+*/
 void addLUTCalque(Liste_Calque liste, int choix, float param);
 
+/*
+*Applique un tableau de LUT au calque les contenant
+*/
 void appliquerListeLUTCalque(Calque * c);
 
+/*
+*Passe au calque suivant s'il y en a un
+*/
 Liste_Calque nextCalque(Liste_Calque liste);
 
+/*
+*Passe au calque précédent s'il y en a un
+*/
 Liste_Calque prevCalque(Liste_Calque liste);
 
 #endif

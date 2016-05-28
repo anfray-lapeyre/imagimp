@@ -27,7 +27,6 @@
 #ifndef _GLIMAGIMP__INTERFACE_H___
 #define _GLIMAGIMP__INTERFACE_H___
 
-
 #define FLAG_FICHIER	1
 #define PAS_FICHIER		1
 
@@ -44,6 +43,7 @@
 //#include <GL/glut.h>
 #include "outils.h"
 #include <math.h>
+#include "Inclusion.h"
 //#include <GL/glu.h>
 //#include <GL/gl.h>
 //#include <GL/glext.h>
@@ -66,7 +66,8 @@
 PFNGLACTIVETEXTUREARBPROC __myglextActiveTextureARB;
 #define glActiveTextureARB __myglextActiveTextureARB
 #endif
-
+typedef struct Bounds Bounds;
+typedef struct Color Color;
 /// ///////////////////////////////////////////////////////////////////////////
 /// variables globales
 /// ///////////////////////////////////////////////////////////////////////////
@@ -177,68 +178,4 @@ extern void modeDebug(int debug);
 
 extern void setFullsreen(int fullscreen);
 extern int isFullscreen();
-
-/// ///////////////////////////////////////////////////////////////////////////
-/// Boutons
-/// ///////////////////////////////////////////////////////////////////////////
-
-typedef struct Button {
-    char* label;
-    Bounds bounds;
-    Color fore;
-    Color back;
-    void (*clickHandle)(void);
-    int hover;
-    int press;
-    int invisible;
-    int inactiv;
-} Button;
-
-extern Button makeButton(char* label, Bounds bounds,Color fore, Color back,
-                  void (*clickHandle)(void));
-extern void drawButton(const Button* b);
-extern void pressButton(Button* b);
-extern void releaseButton(Button* b, int activeAction);
-extern void hoverButton(Button* b);
-extern void leaveButton(Button* b);
-extern void setButtonLabel(Button *b, char* label);
-extern void setButtonInvisible(Button* b, int invisible);
-extern void setButtonInactiv(Button* b, int inactiv);
-
-typedef struct Slider {
-    Bounds bounds;
-    Bounds cursorBounds;
-    Color fore;
-    Color back;
-    void (*setHandle)(float);
-    int hover;
-    int press;
-    int invisible;
-    int inactiv;
-    float value;
-} Slider;
-
-extern Slider makeSlider(Bounds bounds, Color fore, Color back,
-                  void (*setHandle)(float));
-extern void drawSlider(const Slider* b);
-extern void pressSlider(Slider* b);
-extern void releaseSlider(Slider* b, int activeAction);
-extern void hoverSlider(Slider* b);
-extern void leaveSlider(Slider* b);
-extern void setSliderValue(Slider *b, float value);
-extern void setSliderValueFromPos(Slider* b, float x);
-extern void setSliderInvisible(Slider* b, int invisible);
-extern void setSliderInactiv(Slider* b, int inactiv);
-
-
-typedef struct ButtonsList{
-    Button* button;
-    struct ButtonsList* next;
-} ButtonsList;
-
-ButtonsList* makeButtonList(Button* b);
-extern void addButton(Button* b, ButtonsList **list);
-Button* findButtonInList(float x, float y, ButtonsList* list);
-Button* findButtonInArray(float x, float y, Button buttons[], int nbbuttons);
-
 #endif

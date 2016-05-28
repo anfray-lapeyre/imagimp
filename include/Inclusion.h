@@ -24,19 +24,23 @@ Il servira aussi à définir les constantes de notre programme
 #define MAX(x, y) ((x) > (y)) ? (x) : (y)
 //On rajoute ici les définitions de constantes
 
+
+
+#define M_PI 3.1415926535897932384
 #define max_Value 256
 #define nbButtons 16
 #define Image_Width 600
 #define Image_Height 400
 #define Interface_Width 200
+#define ScreenWidth Image_Width+Interface_Width
 
 //Inclusion de tous les fichiers du projet
+#include "Buttons.h"
 #include "interface.h"
 #include "outils.h"
 #include "Pixel.h"
 #include "LUT.h"
 #include "Calque.h"
-#include "Event.h"
 #include "Histogramme.h"
 #include "Image.h"
 

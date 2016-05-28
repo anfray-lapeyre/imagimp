@@ -21,6 +21,12 @@ typedef unsigned char Uint8;
 typedef struct Calque Calque;
 #include <stdbool.h>
 
+//Charge un PPM en prenant un nom de fichier et des pointeurs où l'on stockera la largeur et la hauteur
 unsigned char *LoadPPM(const char *nom_fichier, unsigned int *width, unsigned int *height);
+
+/*
+*Sauvegarde le flux rvb dans le fichier du nom donné
+*
+*/
 bool SaveImage(const char *nom_fichier, Uint8 *rvb, unsigned w, unsigned h);
 #endif
