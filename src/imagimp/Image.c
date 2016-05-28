@@ -181,8 +181,7 @@ void kbdFunc(unsigned char c, int x, int y) {
 			addCalque();
 			break;
 		case 'q':
-			printf("Fin du programme\n");
-			exit(0);
+			Quit();
 			break;
 		case ':': 
 			printf("Calque precedent\n");
@@ -358,6 +357,9 @@ void Save(){
 
 void Quit(){
 	printf("Sortie d'imagimp\n");
+	freeListe_Calque(Image.base);
+	freeButtons(Image.buttons);
+	free(Image.sliderOpacity);
 	exit(0);
 }
 

@@ -84,6 +84,7 @@ typedef struct ButtonsList{
 
 ButtonsList* makeButtonList(Button* b);
 extern void addButton(Button* b, ButtonsList **list);
+void freeButtons(ButtonsList* list);
 
 #endif
 

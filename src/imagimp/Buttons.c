@@ -185,12 +185,9 @@ void privateDrawButton(const Button* b,const Color* fore, const Color* back){
     glColor4f(back->r,back->g,back->b,back->a);
     drawCarre(b->bounds.x,b->bounds.y,b->bounds.x2,b->bounds.y2);
     glColor4f(fore->r,fore->g,fore->b,fore->a);
-	printf("%f %f %f %f %s\n",fore->r,fore->g,fore->b,fore->a, b->label);
     drawCarreVide(b->bounds.x,b->bounds.y,b->bounds.x2,b->bounds.y2);
     float width = (float)glutBitmapLength(GLUT_BITMAP_8_BY_13,(unsigned char*)(b->label))/(float)ScreenWidth;
     float height = (float)glutBitmapWidth(GLUT_BITMAP_8_BY_13,'_') * 8./(13.*(float)Image_Height);
-	printf("%f %f\n",-(b->bounds.x + b->bounds.width/2. - width/2.),
-               b->bounds.y + b->bounds.height/2. - height/2.);
     writeString(-(b->bounds.x + b->bounds.width/2. - width/2.-b->right)/125.,
                b->bounds.y + b->bounds.height/2. - height/2.,b->label);
 }
@@ -256,5 +253,15 @@ void addButton(Button *b, ButtonsList **list){
     ButtonsList* temp = *list;
     *list = makeButtonList(b);
     (*list)->next = temp;
+}
+
+void freeButtons(ButtonsList* list){
+	ButtonsList * tmp=list;
+	ButtonsList * tmp2;
+	while(tmp != NULL){
+		tmp2=tmp;
+		tmp=tmp->next;
+		free(tmp2);
+	}
 }
 
